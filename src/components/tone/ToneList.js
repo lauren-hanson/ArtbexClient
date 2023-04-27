@@ -14,7 +14,7 @@ export const ToneList = () => {
         <h2>Tones</h2>
         <div>
             {tones.map((tone) => {
-                return <img src={tone.imageUrl} />
+                return <img src={tone.imageUrl} className="images"/>
             })}
         </div>
     </>)

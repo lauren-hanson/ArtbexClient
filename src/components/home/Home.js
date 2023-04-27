@@ -1,7 +1,8 @@
 import { useCallback, useState } from "react"
-import { ToneList } from "../tone/ToneList"
-import { Dropzone } from "../dropzone/Dropzone"
+// import { ToneList } from "../tone/ToneList"
+// import { Dropzone } from "../dropzone/Dropzone"
 import { FormatList } from "../format/FormatList"
+import { Box } from "../box/Box"
 import cuid from "cuid"
 
 export const Home = () => {
@@ -25,8 +26,9 @@ export const Home = () => {
 
     return (<>
         <h2>ArtBex</h2>
-        <Dropzone onDrop={onDrop} accept={'image/*'} />
-        <ToneList />
+        {/* <Dropzone onDrop={onDrop} accept={'image/*'} /> */}
+        {/* <ToneList /> */}
         <FormatList />
+        <Box />
     </>)
 }

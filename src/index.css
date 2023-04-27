@@ -34,8 +34,10 @@ code {
   border: 3px dotted black;
 }
 
-.file-list img {
-  height: 300px;
-  width: 300px;
-  object-fit: cover;
+
+
+.images {
+  height: 100px;
+  width: 100px;
+  object-fit: auto;
 }
