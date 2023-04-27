@@ -1,0 +1,13 @@
+body {
+    text-align: center;
+}
+
+.artbex-div {
+    text-align: center;
+    padding: 20px;
+    border: 3px teal dashed;
+    height: 50rem; 
+    width: 50%;
+    margin: auto;
+}
+

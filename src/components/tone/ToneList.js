@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getTones } from "../../managers/ToneManager"
 
+
 export const ToneList = () => {
     const [tones, setTones] = useState([])
 
@@ -11,8 +12,10 @@ export const ToneList = () => {
 
     return (<>
         <h2>Tones</h2>
-        {tones.map((tone) => {
-            return <img src={tone.imageUrl} />
-        })}
+        <div>
+            {tones.map((tone) => {
+                return <img src={tone.imageUrl} className="images"/>
+            })}
+        </div>
     </>)
 }
