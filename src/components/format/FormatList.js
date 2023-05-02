@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
 import { getFormats } from "../../managers/FormatManager"
-// import { DndProvider } from "react-dnd";
-// import { HTML5Backend } from "react-dnd-html5-backend";
 // import { useDrag } from "react-dnd";
 import { Format } from "./Format"
 
@@ -23,7 +21,6 @@ export const FormatList = () => {
 
     return (
         <>
-            {/* <DndProvider backend={HTML5Backend}> */}
             {formats.map((f) => {
                 return <Format key={f.id} formats={f.formats} id={f.id} images={f.imageUrl} />
                 // return (
@@ -39,7 +36,6 @@ export const FormatList = () => {
                 // );
             })}
         </>
-        // </DndProvider>
     )
 }
 
