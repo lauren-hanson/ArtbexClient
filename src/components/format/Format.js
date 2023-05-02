@@ -16,6 +16,8 @@ export const Format = ({ formats, images, id }) => {
                     ref={drag}
                     style={{
                         opacity: isDragging ? 0.5 : 1,
+                        fontSize: 50,
+                        fontWeight: 'bold',
                         cursor: "move",
                     }}
                 >
