@@ -17,7 +17,6 @@ export const FormatDnd = () => {
         formats: imageUrl,
         collect: monitor => ({
             isDragging: monitor.isDragging()
-            // && monitor.getItem().type === ItemTypes.KNIGHT
         }),
     }), [])
 
