@@ -34,10 +34,15 @@ code {
   border: 3px dotted black;
 }
 
-
+.imageList {
+  display: flex; 
+  justify-content: center; 
+  
+}
 
 .images {
   height: 100px;
   width: 100px;
   object-fit: auto;
+  padding: 1rem; 
 }

@@ -11,7 +11,7 @@ export const Format = ({ formats, images, id }) => {
 
     return (
         <>
-            <section className="formats__card" key={id}>
+            <section className="images" key={id}>
                 <div
                     ref={drag}
                     style={{
