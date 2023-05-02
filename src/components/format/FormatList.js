@@ -10,11 +10,14 @@ export const FormatList = () => {
     }, [])
 
     return (
-        <div className="imageList">
-            {formats.map((f) => {
-                return <Format key={f.id} formats={f.formats} id={f.id} images={f.imageUrl} />
-            })}
-        </div>
+        <>
+            <h2>Tones</h2>
+            <div className="imageList">
+                {formats.map((f) => {
+                    return <Format key={f.id} formats={f.formats} id={f.id} images={f.imageUrl} type={f.type} />
+                })}
+            </div>
+        </>
     )
 }
 
