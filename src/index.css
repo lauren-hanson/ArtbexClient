@@ -38,6 +38,29 @@ code {
   margin: 5rem;
 } */
 
+/* .boxContainer {
+  display: flex;
+  flex-direction: column;
+} */
+
+.middleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  align-content: center; 
+  border: 1px solid yellow;
+}
+
+.createBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 30rem;
+  height: 45rem;
+  border: 1px solid darkolivegreen;
+}
+
 .horizontalImageList {
   display: flex;
   flex-direction: row;
@@ -78,15 +101,7 @@ code {
   align-content: center;
 } */
 
-.createBox {
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  align-content: center; 
-  width: 5rem;
-  height: 5rem;
-  border: 1px solid darkolivegreen;
-}
+
 
 .images {
   height: 100px;

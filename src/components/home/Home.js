@@ -8,13 +8,15 @@ export const Home = () => {
 
 
     return (<>
-        <h2>ArtBex</h2>
         <div className="boxContainer">
+            <h2>ArtBex</h2>
             <FormatList />
-            <ToneList />
-            <AudienceList />
+            <div className="middleContainer">
+                <ToneList />
+                <Box />
+                <AudienceList />
+            </div>
             <ProductionList />
-            <Box />
         </div>
     </>)
 }
