@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useDrop } from 'react-dnd'
 
-export const Box = (props) => {
+export const Create = (props) => {
 
     const [images, setImages] = useState([])
 
     const [{ isOver, canDrop }, drop] = useDrop(() => ({
         accept: "IMAGE",
-        // drop: (item, monitor) => {
-        //     const { x: mouseX, y: mouseY } = monitor.getClientOffset();
-        //     const { x: boxX, y: boxY } = monitor.getSourceClientOffset();
-        //     const offsetX = mouseX - boxX;
-        //     const offsetY = mouseY - boxY;
-        //     setImages(prevState => [
-        //         ...prevState,
-        //         { imageSrc: item.imageSrc, x: offsetX, y: offsetY }
-        //     ])
-        // },
+
         collect: monitor => ({
             isOver: !!monitor.isOver(),
             canDrop: !!monitor.canDrop()
         }),
+        drop: (item, monitor) => {
+            const delta = monitor.getDifferenceFromInitialOffset();
+            const left = Math.round(item.x + delta.x);
+            const top = Math.round(item.y + delta.y);
+            const newImage = { imageSrc: item.imageSrc, x: left, y: top };
+            setImages(prevImages => [...prevImages, newImage]);
+        }
     }), [images])
 
 

@@ -2,7 +2,7 @@ import { ToneList } from "../tone/ToneList"
 import { FormatList } from "../format/FormatList"
 import { AudienceList } from "../audience/AudienceList"
 import { ProductionList } from "../production/ProductionList"
-import { Box } from "../box/Box"
+import { Create } from "../create/Create"
 
 export const Home = () => {
 
@@ -13,7 +13,7 @@ export const Home = () => {
             <FormatList />
             <div className="middleContainer">
                 <ToneList />
-                <Box />
+                <Create />
                 <AudienceList />
             </div>
             <ProductionList />

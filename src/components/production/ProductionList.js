@@ -12,7 +12,7 @@ export const ProductionList = () => {
     return (
         <>
             <div className="horizontalImageList bottom imageList">
-            <h2>Productions</h2>
+            {/* <h2>Productions</h2> */}
                 {productions.map((p) => {
                     return <Production key={p.id} productions={p.productions} id={p.id} images={p.imageUrl} type={p.type} />
                 })}

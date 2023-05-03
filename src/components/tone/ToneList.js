@@ -13,7 +13,7 @@ export const ToneList = () => {
 
     return (<>
         <div className="verticalImageList left imageList">
-        <h2>Tones</h2>
+        {/* <h2>Tones</h2> */}
             {tones.map((t) => {
                 return <Tone key={t.id} tones={t.tones} id={t.id} images={t.imageUrl} type={t.type}/>
             })}
