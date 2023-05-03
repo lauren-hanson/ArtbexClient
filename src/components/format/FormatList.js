@@ -11,8 +11,8 @@ export const FormatList = () => {
 
     return (
         <>
-            <h2>Tones</h2>
-            <div className="imageList">
+            <div className="horizontalImageList top imageList">
+                <h2>Formats</h2>
                 {formats.map((f) => {
                     return <Format key={f.id} formats={f.formats} id={f.id} images={f.imageUrl} type={f.type} />
                 })}
