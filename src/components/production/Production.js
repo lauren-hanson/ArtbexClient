@@ -22,8 +22,8 @@ export const Production = ({ images, id, type }) => {
                     }}
                 >
 
-                    {type}
-                    {/* <img src={images} className="images file-img" /> */}
+                    {/* {type} */}
+                    <img src={images} className="images file-img" />
                 </div>
             </section >
 
