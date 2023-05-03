@@ -12,7 +12,7 @@ export const AudienceList = () => {
     return (
         <>
             <div className="verticalImageList right imageList">
-                <h2>Audiences</h2>
+                {/* <h2>Audiences</h2> */}
                 {audiences.map((a) => {
                     return <Audience key={a.id} audiences={a.audiences} id={a.id} images={a.imageUrl} type={a.type} />
                 })}

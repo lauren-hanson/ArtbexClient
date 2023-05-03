@@ -38,11 +38,34 @@ code {
   margin: 5rem;
 } */
 
+.middleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  /* border: 1px solid yellow; */
+}
+
+.createBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 30rem;
+  height: 40rem;
+  border: 1px solid darkolivegreen;
+}
+
+.active-drop-target {
+  width: 30rem;
+  height: 40rem;
+}
+
 .horizontalImageList {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border: 1px solid darkolivegreen
+  /* border: 1px solid darkolivegreen */
 }
 
 .verticalImageList {
@@ -50,7 +73,7 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid darkolivegreen
+  /* border: 1px solid darkolivegreen */
 }
 
 .bottom {
@@ -71,27 +94,11 @@ code {
   width: 300px;
 }
 
-/* .boxContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-} */
-
-.createBox {
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  align-content: center; 
-  width: 5rem;
-  height: 5rem;
-  border: 1px solid darkolivegreen;
-}
 
 .images {
   height: 100px;
   width: 100px;
-  object-fit: auto;
+  object-fit: fill;
   padding: 1rem;
 
 }

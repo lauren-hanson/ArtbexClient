@@ -1,20 +1,23 @@
 import { ToneList } from "../tone/ToneList"
 import { FormatList } from "../format/FormatList"
+
 import { AudienceList } from "../audience/AudienceList"
 import { ProductionList } from "../production/ProductionList"
-import { Box } from "../box/Box"
+import { Create } from "../create/Create"
 
 export const Home = () => {
 
 
     return (<>
-        <h2>ArtBex</h2>
         <div className="boxContainer">
+            <h2>ArtBex</h2>
             <FormatList />
-            <ToneList />
-            <AudienceList />
+            <div className="middleContainer">
+                <ToneList />
+                <Create />
+                <AudienceList />
+            </div>
             <ProductionList />
-            <Box />
         </div>
     </>)
 }

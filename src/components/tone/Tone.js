@@ -21,8 +21,8 @@ export const Tone = ({ images, id, type}) => {
                         cursor: "move",
                     }}
                 >
-                    {type}
-                    {/* <img src={images} className="images file-img" /> */}
+                    {/* {type} */}
+                    <img src={images} className="images file-img" />
                 </div>
             </section >
 
