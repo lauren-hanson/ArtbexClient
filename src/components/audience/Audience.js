@@ -1,6 +1,6 @@
 import { useDrag } from "react-dnd";
 
-export const Format = ({ images, id, type }) => {
+export const Audience = ({ images, id, type }) => {
 
     const [{ isDragging }, drag] = useDrag({
         type: "IMAGE",
