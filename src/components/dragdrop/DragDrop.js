@@ -28,6 +28,7 @@ const PictureList = [
 export const DragDrop = () => {
     const [board, setBoard] = useState([])
     const [tones, setTones] = useState([])
+    const [refresh, setRefresh] = useState(false)
     // const [audiences, setAudiences] = useState([])
     // const [formats, setFormats] = useState([])
     // const [productions, setProductions] = useState([])
@@ -42,7 +43,6 @@ export const DragDrop = () => {
 
     useEffect(() => {
         getTones().then((tone) => {
-            console.log(tone)
             setTones(tone)
             // getAudiences().then((audience) => setAudiences(audience))
             // getFormats().then((format) => setFormats(format))
@@ -62,16 +62,16 @@ export const DragDrop = () => {
     return (
         <>
             <div className="Pictures">
-                {/* {tones.map((p) => {
+                {tones.map((p) => {
                     return <Tone imageUrl={p.imageUrl} id={p.id} type={p.type}/>;
-                })} */}
-                {tones.filter((tone) => tone !== null && tone !== undefined).map((tone) => {
-                    return <Tone imageUrl={tone.imageUrl} id={tone.id} key={tone.id} />;
                 })}
+                {/* {tones.filter((tone) => tone !== null && tone !== undefined).map((tone) => {
+                    return <Tone imageUrl={tone.imageUrl} id={tone.id} key={tone.id} />;
+                })} */}
             </div>
             <div className="Board" ref={drop}>
-                {board.map((p) => {
-                    return <Tone imageUrl={p.imageUrl} id={p.id} type={p.type} />;
+                {board.map((b) => {
+                    return <Tone imageUrl={b.imageUrl} id={b.id} type={b.type} />;
                 })}
             </div>
         </>
