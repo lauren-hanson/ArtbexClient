@@ -1,9 +1,9 @@
 import { useDrag } from "react-dnd";
 
-export const Tone = ({ imageUrl, id, type }) => {
+export const Tone = ({ imageUrl, id }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: "image",
+        type: "images",
         item: { id: id },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
@@ -12,23 +12,12 @@ export const Tone = ({ imageUrl, id, type }) => {
 
     return (
         <>
-            <section className="images" key={id}>
-                <div
-
-                    style={{
-                        opacity: isDragging ? 0.5 : 1,
-                        // fontSize: 50,
-                        // fontWeight: 'bold',
-                        cursor: "move",
-                    }}
-                >
-                    {/* {type} */}
-                    <img
-                        ref={drag}
-                        src={imageUrl}
-                        className="images file-img" />
-                </div>
-            </section >
+            <img
+                ref={drag}
+                src={imageUrl}
+                width="150px"
+                style={{ border: isDragging ? "5px solid pink" : "0px" }}
+            />
 
         </>)
 }

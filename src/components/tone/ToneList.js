@@ -14,7 +14,7 @@ export const ToneList = ({ imageUrl, id }) => {
         <div className="verticalImageList left imageList">
             {/* <h2>Tones</h2> */}
             {tones.map((t) => {
-                return <Tone key={t.id} tones={t.tones} id={t.id} images={t.imageUrl} type={t.type} />
+                return <Tone key={t.id} tones={t.tones} id={t.id} imageUrl={t.imageUrl} />
             })}
         </div>
     </>)

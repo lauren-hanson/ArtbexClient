@@ -11,7 +11,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 export const Home = () => {
 
     return (
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider
+            backend={HTML5Backend}
+            className="boxContainer">
             <div className="app">
                 <DragDrop />
                 {/* <div className="boxContainer">
