@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Picture } from "./Picture";
-import { useDrop } from "react-dnd";
+import { useDrop } from "react-dnd"
+import { Tone } from "../tone/Tone"
+import { getTones } from "../../managers/ToneManager"
+import { getFormats } from "../../managers/FormatManager"
+import { getAudiences } from "../../managers/AudienceManager"
+import { getProductions } from "../../managers/ProductionManager"
 
 const PictureList = [
     {
@@ -21,7 +26,11 @@ const PictureList = [
 ];
 
 export const DragDrop = () => {
-    const [board, setBoard] = useState([]);
+    const [board, setBoard] = useState([])
+    const [tones, setTones] = useState([])
+    const [audiences, setAudiences] = useState([])
+    const [formats, setFormats] = useState([])
+    const [productions, setProductions] = useState([])
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "image",
@@ -31,20 +40,33 @@ export const DragDrop = () => {
         }),
     }));
 
+    useEffect(() => {
+        getTones().then((tone) => setTones(tone))
+        getAudiences().then((audience) => setAudiences(audience))
+        getFormats().then((format) => setFormats(format))
+        getProductions().then((production) => setProductions(production))
+
+    }, [])
+
     const addImageToBoard = (id) => {
-        const pictureList = PictureList.filter((picture) => id === picture.id);
-        setBoard((board) => [...board, pictureList[0]]);
-    };
+        // const pictureList = PictureList.filter((picture) => id === picture.id)
+
+        const toneList = tones.filter((t) => id === t.id)
+
+        setBoard((board) => [...board, toneList[0]])
+    }
+
     return (
         <>
             <div className="Pictures">
-                {PictureList.map((picture) => {
-                    return <Picture imageUrl={picture.imageUrl} id={picture.id} />;
+                {tones.map((t) => {
+                    return <Tone imageUrl={t.imageUrl} id={t.id} />;
                 })}
             </div>
+
             <div className="Board" ref={drop}>
-                {board.map((picture) => {
-                    return <Picture imageUrl={picture.imageUrl} id={picture.id} />;
+                {board.map((t) => {
+                    return <Tone imageUrl={t.imageUrl} id={t.id} />
                 })}
             </div>
         </>
