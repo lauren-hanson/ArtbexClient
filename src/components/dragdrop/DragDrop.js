@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Picture } from "./Picture";
 import { useDrop } from "react-dnd"
 import { Tone } from "../tone/Tone"
 import { getTones } from "../../managers/ToneManager"
-// import { getFormats } from "../../managers/FormatManager"
+// import { Audience } from "../audience/Audience"
 // import { getAudiences } from "../../managers/AudienceManager"
+// import { Picture } from "./Picture";
+// import { getFormats } from "../../managers/FormatManager"
 // import { getProductions } from "../../managers/ProductionManager"
 
 const PictureList = [
@@ -26,9 +27,13 @@ const PictureList = [
 ]
 
 export const DragDrop = () => {
-    const [board, setBoard] = useState([])
+    const [board, setBoard] = useState([
+        {
+            id: 0,
+            imageUrl: ""
+        }
+    ])
     const [tones, setTones] = useState([])
-    const [refresh, setRefresh] = useState(false)
     // const [audiences, setAudiences] = useState([])
     // const [formats, setFormats] = useState([])
     // const [productions, setProductions] = useState([])
@@ -55,23 +60,29 @@ export const DragDrop = () => {
         // const pictureList = PictureList.filter((picture) => id === picture.id)
         // setBoard((board) => [...board, pictureList[0]])
 
-        const toneList = tones.filter((t) => id === t.id)
-        setBoard((board) => [...board, toneList[0]])
+        const toneList = tones.find((t) => id === t.id)
+        // const audienceList = audiences.find((a) => id === a.id)
+        setBoard((board) => [...board, toneList])
+
     }
 
     return (
         <>
             <div className="Pictures">
                 {tones.map((p) => {
-                    return <Tone imageUrl={p.imageUrl} id={p.id} type={p.type}/>;
+                    return <Tone image={p?.imageUrl} id={p?.id} type={p.type} />;
                 })}
-                {/* {tones.filter((tone) => tone !== null && tone !== undefined).map((tone) => {
-                    return <Tone imageUrl={tone.imageUrl} id={tone.id} key={tone.id} />;
+                {/* {audiences.map((a) => {
+                    return <Audience image={a.imageUrl} id={a.id} type={a.type} />;
                 })} */}
             </div>
-            <div className="Board" ref={drop}>
-                {board.map((b) => {
-                    return <Tone imageUrl={b.imageUrl} id={b.id} type={b.type} />;
+            <div className="createBox" ref={drop}>
+                {board.map((t) => {
+                    return <Tone image={t?.imageUrl} id={t?.id} type={t?.type} tones={t?.tones} />
+
+                    {/* <div>
+                            <Audience image={t?.imageUrl} id={t?.id} type={t?.type} tones={t?.tones} />
+                        </div> */}
                 })}
             </div>
         </>
