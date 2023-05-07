@@ -1,31 +1,22 @@
+import React from "react";
 import { useDrag } from "react-dnd";
 
-export const Audience = ({ images, id, type }) => {
-
-    const [{ isDragging }, drag] = useDrag({
-        type: "IMAGE",
+export const Audience = ({ id, image }) => {
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: "images",
+        item: { id: id },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
-    });
-
+    }))
     return (
         <>
-            <section className="images" key={id}>
-                <div
-                    ref={drag}
-                    style={{
-                        opacity: isDragging ? 0.5 : 1,
-                        // fontSize: 50,
-                        // fontWeight: 'bold',
-                        // cursor: "move",
-                    }}
-                >
-
-                    {/* {type} */}
-                    <img src={images} className="images file-img" />
-                </div>
-            </section >
-
-        </>)
+            <img
+                ref={drag}
+                src={image}
+                width="150px"
+                style={{ border: isDragging ? "5px solid pink" : "0px" }}
+            />
+        </>
+    )
 }
