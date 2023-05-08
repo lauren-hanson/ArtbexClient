@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd"
-
-import { PictureList } from "./PictureList"
+import { Tone } from "../tone/Tone"
+import { ToneList } from "../tone/ToneList"
 import { getTones } from "../../managers/ToneManager"
-
 
 export const DragDrop = () => {
 
@@ -12,21 +11,12 @@ export const DragDrop = () => {
     const [tones, setTones] = useState([])
 
     const [{ isOver }, drop] = useDrop(() => ({
-        accept: "images",
+        accept: "IMAGES",
         drop: (item) => addImageToBoard(item.id),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
     }))
-
-    const addImageToBoard = (id) => {
-        const pictureList = tones.filter((picture) => id === picture.id)
-        setBoard((board) => [...board, pictureList[0]])
-
-        // const toneList = tones.find((t) => id === t.id)
-        // setBoard((board) => [...board, toneList])
-    }
-
 
     useEffect(() => {
         getTones().then((tone) => {
@@ -35,23 +25,25 @@ export const DragDrop = () => {
 
     }, [])
 
+
+    const addImageToBoard = (id) => {
+        const toneList = tones.filter((t) => id === t.id)
+        setBoard((board) => [...board, toneList[0]])
+    }
+
     return (
         <>
-            {/* <div className="Pictures">
-                {tones.map((t) => {
-                    return <PictureList src={t?.imageUrl} id={t?.id} text={t?.type} />
-                })}
-            </div> */}
             <div className="Pictures">
-                <PictureList tones={tones}/>
+                {tones.map((t) => {
+                    return <Tone src={t?.imageUrl} id={t?.id} text={t?.type} />;
+                })}
             </div>
             <div className="createBox" ref={drop}>
                 {board.map((t) => {
-                    return <PictureList src={t?.imageUrl} id={t?.id}/>
+                    return <Tone src={t?.imageUrl} id={t?.id} text={t?.type} />
                 })}
             </div>
         </>
     );
 }
 
-// src={t?.imageUrl} id={t?.id} text={t?.type}

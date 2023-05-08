@@ -3,7 +3,7 @@ import { useDrag } from "react-dnd"
 
 export const Tone = ({ id, src }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: "images",
+        type: "IMAGES",
         item: { id: id },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
