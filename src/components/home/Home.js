@@ -27,5 +27,24 @@ export const Home = () => {
             <ProductionList />
         </div> */}
             </div>
+            <fieldset>
+                <label>
+                    Start Date:
+                </label>
+                <input
+                    type="date" 
+                /> 
+            </fieldset>
+            <fieldset>
+                <label>
+                    End Date:
+                </label>
+                <input
+                    type="date" 
+                /> 
+            </fieldset>
+            <button>
+                save your creation.
+            </button>
         </DndProvider>)
 }
