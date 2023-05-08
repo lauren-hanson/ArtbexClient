@@ -1,72 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import { useDrop } from "react-dnd"
-import { Tone } from "../tone/Tone"
+
+import { PictureList } from "./PictureList"
 import { getTones } from "../../managers/ToneManager"
 
 
-// const PictureList = [
-//     {
-//         id: 1,
-//         imageUrl:
-//             "https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681062188/artbex/s9w2iceruy9yffsbklfp.jpg",
-//     },
-//     {
-//         id: 2,
-//         imageUrl:
-//             "https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681062172/artbex/e0zu4lxehvaacuknl3p3.jpg",
-//     },
-//     {
-//         id: 3,
-//         imageUrl:
-//             "https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681062145/artbex/huc9p9zv3bvj8vpgja16.jpg",
-//     },
-// ]
-
 export const DragDrop = () => {
-    const [board, setBoard] = useState([
-        {
-            id: 0,
-            imageUrl: ""
-        }
-    ])
+
+    const [board, setBoard] = useState([])
 
     const [tones, setTones] = useState([])
 
     const [{ isOver }, drop] = useDrop(() => ({
-        accept: "IMAGE",
+        accept: "images",
         drop: (item) => addImageToBoard(item.id),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
-    }));
+    }))
+
+    const addImageToBoard = (id) => {
+        const pictureList = tones.filter((picture) => id === picture.id)
+        setBoard((board) => [...board, pictureList[0]])
+
+        // const toneList = tones.find((t) => id === t.id)
+        // setBoard((board) => [...board, toneList])
+    }
+
 
     useEffect(() => {
         getTones().then((tone) => {
             setTones(tone)
         })
+
     }, [])
-
-    const addImageToBoard = (id) => {
-        // const pictureList = PictureList.filter((picture) => id === picture.id)
-        // setBoard((board) => [...board, pictureList[0]])
-
-        const toneList = tones.filter((t) => id === t.id)
-        setBoard((board) => [...board, toneList[0]])
-    }
 
     return (
         <>
-            <div className="Pictures">
+            {/* <div className="Pictures">
                 {tones.map((t) => {
-                    return <Tone src={t?.imageUrl} id={t?.id} text={t?.type} />
+                    return <PictureList src={t?.imageUrl} id={t?.id} text={t?.type} />
                 })}
+            </div> */}
+            <div className="Pictures">
+                <PictureList tones={tones}/>
             </div>
             <div className="createBox" ref={drop}>
                 {board.map((t) => {
-                    return <Tone src={t?.imageUrl} id={t?.id} text={t?.type} />
+                    return <PictureList src={t?.imageUrl} id={t?.id}/>
                 })}
             </div>
         </>
     );
 }
 
+// src={t?.imageUrl} id={t?.id} text={t?.type}

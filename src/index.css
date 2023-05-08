@@ -93,12 +93,13 @@ code {
 }
 
 img {
-  margin: 5px;
+  width: 10rem; 
+  height: 10rem; 
 }
 
 .createBox {
   display: flex;
-  width: 30rem;
+  width: 50rem;
   height: 50rem;
   border: 1px solid darkolivegreen;
 }
