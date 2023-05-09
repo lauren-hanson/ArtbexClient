@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd"
-import { Tone } from "../tone/Tone"
-import { ToneList } from "../tone/ToneList"
-import { getTones } from "../../managers/ToneManager"
+import { PictureList } from "./PictureList"
+import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
 export const DragDrop = () => {
 
     const [board, setBoard] = useState([])
+    const [images, setImages] = useState([])
 
+    const [productions, setProductions] = useState([])
+    const [audiences, setAudiences] = useState([])
+    const [formats, setFormats] = useState([])
     const [tones, setTones] = useState([])
 
     const [{ isOver }, drop] = useDrop(() => ({
@@ -19,28 +22,43 @@ export const DragDrop = () => {
     }))
 
     useEffect(() => {
-        getTones().then((tone) => {
+
+        getImages().then((i) => {
+            setImages(i)
+        })
+
+        getImageByCategory(1).then((production) => {
+            setProductions(production)
+        })
+        getImageByCategory(2).then((format) => {
+            setFormats(format)
+        })
+
+        getImageByCategory(3).then((tone) => {
             setTones(tone)
+        })
+        getImageByCategory(4).then((audience) => {
+            setAudiences(audience)
         })
 
     }, [])
 
 
     const addImageToBoard = (id) => {
-        const toneList = tones.filter((t) => id === t.id)
-        setBoard((board) => [...board, toneList[0]])
+        const imageList = images.filter((t) => id === t.id)
+        setBoard((board) => [...board, imageList[0]])
     }
 
     return (
         <>
             <div className="Pictures">
-                {tones.map((t) => {
-                    return <Tone src={t?.imageUrl} id={t?.id} text={t?.type} />;
-                })}
+
+                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />;
+
             </div>
             <div className="createBox" ref={drop}>
                 {board.map((t) => {
-                    return <Tone src={t?.imageUrl} id={t?.id} text={t?.type} />
+                    return <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />
                 })}
             </div>
         </>

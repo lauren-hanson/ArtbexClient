@@ -45,7 +45,9 @@ code {
 
   display: flex;
   flex-direction: column;
+  margin-top: 8rem;
   align-items: center;
+
   /* border: 1px solid darkolivegreen */
 }
 
@@ -99,8 +101,9 @@ img {
 
 .createBox {
   display: flex;
-  width: 50rem;
-  height: 50rem;
+  margin-left: 25rem; 
+  width: 35rem;
+  height: 40rem;
   border: 1px solid darkolivegreen;
 }
 
