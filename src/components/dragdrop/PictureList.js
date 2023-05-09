@@ -1,8 +1,11 @@
 import React from "react";
 import { useDrag } from "react-dnd"
 import { ToneList } from "../tone/ToneList"
+import { FormatList } from "../format/FormatList"
+import { AudienceList } from "../audience/AudienceList"
+import { ProductionList } from "../production/ProductionList"
 
-export const PictureList = ({src, id, text, tones}) => {
+export const PictureList = ({ src, id, text, tones, formats, audiences, productions }) => {
     // const [{ isDragging }, drag] = useDrag(() => ({
     //     type: "images",
     //     item: { id: id },
@@ -12,11 +15,16 @@ export const PictureList = ({src, id, text, tones}) => {
 
     // }), [id])
 
- 
 
-   
+
+
     return (
-        <ToneList src={src} id={id} text={text} tones={tones}/>
+        <>
+            <ToneList tones={tones} />
+            <AudienceList audiences={audiences} />
+            <FormatList formats={formats} />
+            <ProductionList productions={productions} />
+        </>
         // <img
         //     ref={drag}
         //     src={image}

@@ -1,13 +1,13 @@
 import { useDrag } from "react-dnd";
 
-export const Format = ({ images, id, type }) => {
+export const Format = ({ image, id, type }) => {
 
     const [{ isDragging }, drag] = useDrag({
         type: "IMAGE",
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
-    });
+    })
 
     return (
         <>
@@ -23,7 +23,12 @@ export const Format = ({ images, id, type }) => {
                 >
 
                     {/* {type} */}
-                    <img src={images} className="images file-img" />
+                    <img className="images file-img"
+                        ref={drag}
+                        src={image}
+                        alt="tone"
+                        width="150px"
+                        style={{ border: isDragging ? "5px solid pink" : "0px" }} />
                 </div>
             </section >
 

@@ -12,8 +12,10 @@ export const Audience = ({ id, image }) => {
     return (
         <>
             <img
+                className="images file-img"
                 ref={drag}
                 src={image}
+                alt="tone"
                 width="150px"
                 style={{ border: isDragging ? "5px solid pink" : "0px" }}
             />

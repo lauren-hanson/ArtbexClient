@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react"
-import { getFormats } from "../../managers/FormatManager"
 import { Format } from "./Format"
 
-export const FormatList = () => {
-    const [formats, setFormats] = useState([])
-
-    useEffect(() => {
-        getFormats().then((formatInfo) => setFormats(formatInfo))
-    }, [])
+export const FormatList = ({ formats }) => {
 
     return (
         <>
             <div className="horizontalImageList top imageList">
-                {/* <h2>Formats</h2> */}
+                <h4>Formats</h4>
                 {formats.map((f) => {
-                    return <Format key={f.id} formats={f.formats} id={f.id} images={f.imageUrl} type={f.type} />
+                    return <Format key={f.id} formats={f.formats} id={f.id} image={f.imageUrl} type={f.type} />
                 })}
             </div>
         </>
