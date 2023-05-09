@@ -14,7 +14,7 @@ export const DragDrop = () => {
     const [tones, setTones] = useState([])
 
     const [{ isOver }, drop] = useDrop(() => ({
-        accept: "IMAGES",
+        accept: "images",
         drop: (item) => addImageToBoard(item.id),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
@@ -45,7 +45,7 @@ export const DragDrop = () => {
 
 
     const addImageToBoard = (id) => {
-        const imageList = images.filter((t) => id === t.id)
+        const imageList = images.filter((i) => id === i.id)
         setBoard((board) => [...board, imageList[0]])
     }
 
@@ -53,7 +53,7 @@ export const DragDrop = () => {
         <>
             <div className="Pictures">
 
-                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />;
+                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} id={images.id}/>;
 
             </div>
             <div className="createBox" ref={drop}>
