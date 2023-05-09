@@ -12,6 +12,17 @@ code {
     monospace;
 }
 
+
+.createBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 60rem;
+  height: 60rem;
+  border: 1px solid darkolivegreen;
+}
+
 .middleContainer {
   display: flex;
   flex-direction: column;
@@ -19,14 +30,6 @@ code {
   align-content: center;
   /* border: 1px solid yellow; */
 }
-
-/* 
-.boxContainer { 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  align-content: center; 
-} */
 
 
 .active-drop-target {
@@ -78,34 +81,23 @@ code {
 
 }
 
-.app {
+/* .app {
   text-align: center;
   width: 100vw;
   height: 100vh;
-}
+} */
 
-.App {
+/* .App {
   text-align: center;
   width: 100vw;
   height: 100vh;
-}
+} */
 
 .Pictures {
   margin: 10px;
 }
 
 img {
-  width: 10rem; 
-  height: 10rem; 
+  width: 10rem;
+  height: 10rem;
 }
-
-.createBox {
-  display: flex;
-  margin-left: 25rem; 
-  width: 35rem;
-  height: 40rem;
-  border: 1px solid darkolivegreen;
-}
-
-
-

@@ -1,26 +1,29 @@
 import { useDrag } from "react-dnd";
 
-export const Production = ({ image, id, type }) => {
+export const Production = ({ id, productions }) => {
 
-    const [{ isDragging }, drag] = useDrag({
-        type: "IMAGE",
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: "images",
+        item: { id: id },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
-    });
+    }), [])
 
     return (
-        <>
-            <section className="images" key={id}>
-
-                <img
+        <div className="horizontalImageList bottom imageList">
+            <h4>Productions</h4>
+            {productions.map((p) => {
+                return <img
                     className="images file-img"
+                    key={p.id}
                     ref={drag}
-                    src={image}
-                    alt="tone"
+                    src={p.imageUrl}
+                    alt="Production Image"
                     width="150px"
-                    style={{ border: isDragging ? "5px solid pink" : "0px" }} />
-        </section >
-
-        </>)
+                    style={{ border: isDragging ? "5px solid pink" : "0px" }}
+                />
+            })}
+        </div>
+    )
 }
