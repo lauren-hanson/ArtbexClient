@@ -18,8 +18,9 @@ code {
   justify-content: center;
   align-items: center;
   align-content: center;
-  width: 60rem;
-  height: 60rem;
+  width: 40rem; 
+  height: 50rem; 
+  margin-left: 23%; 
   border: 1px solid darkolivegreen;
 }
 
@@ -28,14 +29,9 @@ code {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  /* border: 1px solid yellow; */
+  border: 1px solid yellow;
 }
 
-
-.active-drop-target {
-  width: 30rem;
-  height: 40rem;
-}
 
 .horizontalImageList {
   display: flex;
@@ -48,16 +44,15 @@ code {
 
   display: flex;
   flex-direction: column;
-  margin-top: 8rem;
+  margin-top: 10rem;
   align-items: center;
-
   /* border: 1px solid darkolivegreen */
 }
 
 .bottom {
   bottom: 0px;
   position: absolute;
-  padding-left: 20rem;
+  margin-left: 20%; 
 }
 
 .right {

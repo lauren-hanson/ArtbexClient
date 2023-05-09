@@ -16,18 +16,8 @@ export const Home = () => {
             className="boxContainer">
             <div className="app">
                 <DragDrop />
-                {/* <div className="boxContainer">
-            <h2>ArtBex</h2>
-            <FormatList />
-            <div className="middleContainer">
-                <ToneList />
-                <Create />
-                <AudienceList />
             </div>
-            <ProductionList />
-        </div> */}
-            </div>
-            <fieldset>
+            {/* <fieldset>
                 <label>
                     Start Date:
                 </label>
@@ -45,6 +35,6 @@ export const Home = () => {
             </fieldset>
             <button>
                 save your creation.
-            </button>
+            </button> */}
         </DndProvider>)
 }
