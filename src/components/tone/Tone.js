@@ -2,6 +2,7 @@ import React from "react"
 import { useDrag } from "react-dnd"
 
 export const Tone = ({ id, tones }) => {
+    
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "images",
         item: { id: id },

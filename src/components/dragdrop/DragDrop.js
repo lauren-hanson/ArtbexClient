@@ -22,46 +22,40 @@ export const DragDrop = () => {
     }))
 
     useEffect(() => {
-
         getImages().then((i) => {
             setImages(i)
         })
-
         getImageByCategory(1).then((production) => {
             setProductions(production)
         })
         getImageByCategory(2).then((format) => {
             setFormats(format)
         })
-
         getImageByCategory(3).then((tone) => {
             setTones(tone)
         })
         getImageByCategory(4).then((audience) => {
             setAudiences(audience)
         })
-
     }, [])
 
 
-    const addImageToBoard = (id) => {
-        const imageList = images.filter((i) => id === i.id)
-        setBoard((board) => [...board, imageList[0]])
+    const addImageToBoard = (id, category) => {
+        const imageList = images.filter((i) => id === i.id && category === i.category);
+        setBoard((board) => [...board, imageList[0]]);
     }
 
     return (
         <>
             <div className="Pictures">
-
-                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} id={images.id}/>;
-
+                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />
             </div>
             <div className="createBox" ref={drop}>
                 {board.map((t) => {
-                    return <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />
+                    return <PictureList key={t?.id} formats={formats} productions={productions} audiences={audiences} tones={tones} />
                 })}
             </div>
         </>
-    );
+    )
 }
 

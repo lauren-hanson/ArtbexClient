@@ -1,6 +1,6 @@
 import { useDrag } from "react-dnd";
 
-export const Production = ({ id, productions }) => {
+export const Production = ({ id, productions, image }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "images",
@@ -11,19 +11,15 @@ export const Production = ({ id, productions }) => {
     }), [])
 
     return (
-        <div className="horizontalImageList bottom imageList">
-            <h4>Productions</h4>
-            {productions.map((p) => {
-                return <img
-                    className="images file-img"
-                    key={p.id}
-                    ref={drag}
-                    src={p.imageUrl}
-                    alt="Production Image"
-                    width="150px"
-                    style={{ border: isDragging ? "5px solid pink" : "0px" }}
-                />
-            })}
-        </div>
+
+        <img
+            className="images file-img"
+            ref={drag}
+            key={productions.id}
+            src={image}
+            alt="Production Image"
+            width="150px"
+            style={{ border: isDragging ? "5px solid pink" : "0px" }}
+        />
     )
 }

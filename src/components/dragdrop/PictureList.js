@@ -9,34 +9,41 @@ import { Format } from "../format/Format"
 import { Audience } from "../audience/Audience"
 import { Production } from "../production/Production"
 
-export const PictureList = ({ id, tones, formats, audiences, productions }) => {
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: "images",
-        item: { id: id },
-        collect: (monitor) => ({
-            isDragging: !!monitor.isDragging(),
-        }),
-
-    }), [])
-
+export const PictureList = ({ id, tones, formats, audiences, productions, key }) => {
+    // const [{ isDragging }, drag] = useDrag(() => ({
+    //     type: "images",
+    //     item: { id: id },
+    //     collect: (monitor) => ({
+    //         isDragging: !!monitor.isDragging(),
+    //     }),
+    // }), [])
 
     return (
         <>
-            {/* <ToneList tones={tones} />
-            <AudienceList audiences={audiences} />
-            <FormatList formats={formats} />
-            <ProductionList productions={productions} /> */}
-            <Tone
-                tones={tones} id={tones.id} />
-            <Audience audiences={audiences} id={audiences.id} />
-            <Format formats={formats} id={formats.id} />
-            <Production productions={productions} id={productions.id} />
+            <div key={key}>
+                <div>
+                    {tones.map((t) => {
+                        return <Tone tones={tones} id={t.id} category="tones" />
+                    })}
+                </div>
+                <div>
+                    {audiences.map((a) => {
+                        return <Audience audiences={audiences} id={a.id} category="audiences" />
+                    })}
+                </div>
+                <div className="horizontalImageList top imageList">
+                    <h4>Formats</h4>
+                    {formats.map((f) => {
+                        return <Format formats={formats} id={f.id} category="formats" image={f.imageUrl} />
+                    })}
+                </div>
+                <div className="horizontalImageList bottom imageList">
+                    <h4>Productions</h4>
+                    {productions.map((p) => {
+                        return <Production productions={productions} id={p.id} category="productions" image={p.imageUrl} />
+                    })}
+                </div>
+            </div>
         </>
-        // <img
-        //     ref={drag}
-        //     src={image}
-        //     width="150px"
-        //     style={{ border: isDragging ? "5px solid pink" : "0px" }}
-        // />
     )
 }

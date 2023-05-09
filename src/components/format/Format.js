@@ -1,6 +1,6 @@
 import { useDrag } from "react-dnd";
 
-export const Format = ({ id, formats }) => {
+export const Format = ({ id, formats, image }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "images",
@@ -12,20 +12,14 @@ export const Format = ({ id, formats }) => {
 
     return (
         <>
-            <div className="horizontalImageList top imageList">
-                <h4>Formats</h4>
-                {formats.map((f) => {
-                    return <img
-                        className="images file-img"
-                        ref={drag}
-                        key={f.id}
-                        src={f.imageUrl}
-                        alt="Format Image"
-                        width="150px"
-                        style={{ border: isDragging ? "5px solid pink" : "0px" }}
-                    />
-                    // <Tone key={t?.id} id={t?.id} src={t?.imageUrl} />
-                })}
-            </div>
+            <img
+                className="images file-img"
+                ref={drag}
+                key={formats.id}
+                src={image}
+                alt="Format Image"
+                width="150px"
+                style={{ border: isDragging ? "5px solid pink" : "0px" }}
+            />
         </>)
 }
