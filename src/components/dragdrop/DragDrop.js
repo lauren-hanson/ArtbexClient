@@ -40,20 +40,29 @@ export const DragDrop = () => {
     }, [])
 
 
-    const addImageToBoard = (id, category) => {
-        const imageList = images.filter((i) => id === i.id && category === i.category);
-        setBoard((board) => [...board, imageList[0]]);
+    const addImageToBoard = (id) => {
+        const imageList = images.filter((i) => id === i.id)
+        setBoard((board) => [...board, imageList[0]])
+    }
+
+    const handleDrop = (item) => {
+        addImageToBoard(item.id)
     }
 
     return (
         <>
             <div className="Pictures">
-                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />
+                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} handleDrop={handleDrop}/>
             </div>
             <div className="createBox" ref={drop}>
                 {board.map((t) => {
-                    return <PictureList key={t?.id} formats={formats} productions={productions} audiences={audiences} tones={tones} />
+                    if (t) {
+                        return <PictureList key={t.id} id={t.id} />
+                    }
                 })}
+                {/* {board.map((t) => {
+                    return <PictureList key={t?.id} id={t.id}/>
+                })} */}
             </div>
         </>
     )
