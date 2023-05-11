@@ -5,7 +5,8 @@ import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
 export const DragDrop = () => {
 
-    const [board, setBoard] = useState([])
+    const [board, setBoard] = useState([
+    ])
     const [images, setImages] = useState([])
 
     const [productions, setProductions] = useState([])
@@ -15,7 +16,7 @@ export const DragDrop = () => {
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "images",
-        drop: (item) => addImageToBoard(item.id),
+        drop: (item) => addImageToBoard(item.id, images),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
@@ -40,21 +41,34 @@ export const DragDrop = () => {
     }, [])
 
 
-    const addImageToBoard = (id, category) => {
-        const imageList = images.filter((i) => id === i.id && category === i.category);
-        setBoard((board) => [...board, imageList[0]]);
+    const addImageToBoard = (id) => {
+        console.log(`Adding image with id ${id} to board...`)
+        const picture = images.filter((picture) => id === picture.id)
+        console.log(`Found picture: ${JSON.stringify(picture)}`)
+        if (picture) {
+            setBoard((board) => [...board, picture[0]])
+        }
     }
+
 
     return (
         <>
             <div className="Pictures">
                 <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />
+
             </div>
-            <div className="createBox" ref={drop}>
-                {board.map((t) => {
-                    return <PictureList key={t?.id} formats={formats} productions={productions} audiences={audiences} tones={tones} />
+            <div className="createBox" ref={drop} key={`images--${images?.id}`}>
+                {board.map((i) => {
+                    return <div key={i?.id}>
+                        {console.log(`Image URL: ${i?.imageUrl}`)}
+                        <img
+                            src={i?.imageUrl}
+                        // alt="img"
+                        />
+                    </div>
                 })}
             </div>
+
         </>
     )
 }
