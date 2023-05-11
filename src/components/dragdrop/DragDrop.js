@@ -5,7 +5,8 @@ import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
 export const DragDrop = () => {
 
-    const [board, setBoard] = useState([])
+    const [board, setBoard] = useState([
+    ])
     const [images, setImages] = useState([])
 
     const [productions, setProductions] = useState([])
@@ -15,7 +16,7 @@ export const DragDrop = () => {
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "images",
-        drop: (item) => addImageToBoard(item.id),
+        drop: (item) => addImageToBoard(item.id, images),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
@@ -41,29 +42,33 @@ export const DragDrop = () => {
 
 
     const addImageToBoard = (id) => {
-        const imageList = images.filter((i) => id === i.id)
-        setBoard((board) => [...board, imageList[0]])
+        console.log(`Adding image with id ${id} to board...`)
+        const picture = images.filter((picture) => id === picture.id)
+        console.log(`Found picture: ${JSON.stringify(picture)}`)
+        if (picture) {
+            setBoard((board) => [...board, picture[0]])
+        }
     }
 
-    const handleDrop = (item) => {
-        addImageToBoard(item.id)
-    }
 
     return (
         <>
             <div className="Pictures">
-                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} handleDrop={handleDrop}/>
+                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />
+
             </div>
-            <div className="createBox" ref={drop}>
-                {board.map((t) => {
-                    if (t) {
-                        return <PictureList key={t.id} id={t.id} />
-                    }
+            <div className="createBox" ref={drop} key={`images--${images?.id}`}>
+                {board.map((i) => {
+                    return <div key={i?.id}>
+                        {console.log(`Image URL: ${i?.imageUrl}`)}
+                        <img
+                            src={i?.imageUrl}
+                        // alt="img"
+                        />
+                    </div>
                 })}
-                {/* {board.map((t) => {
-                    return <PictureList key={t?.id} id={t.id}/>
-                })} */}
             </div>
+
         </>
     )
 }

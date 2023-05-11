@@ -1,7 +1,7 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 
-export const Audience = ({ id, audiences, image }) => {
+export const Audience = ({ id, image }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "images",
@@ -9,14 +9,14 @@ export const Audience = ({ id, audiences, image }) => {
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
-    }), [])
+    }))
 
     return (
 
         <img
             className="images file-img"
             ref={drag}
-            key={id}
+            id={id}
             src={image}
             alt="Audience Image"
             width="150px"

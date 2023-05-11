@@ -1,6 +1,6 @@
 import { useDrag } from "react-dnd";
 
-export const Production = ({ id, productions, image }) => {
+export const Production = ({ id, image }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "images",
@@ -8,14 +8,14 @@ export const Production = ({ id, productions, image }) => {
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
-    }), [])
+    }))
 
     return (
 
         <img
             className="images file-img"
             ref={drag}
-            key={productions.id}
+            id={id}
             src={image}
             alt="Production Image"
             width="150px"

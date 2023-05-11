@@ -1,7 +1,7 @@
 import React from "react"
 import { useDrag } from "react-dnd"
 
-export const Tone = ({ id, tones, image }) => {
+export const Tone = ({ id, image }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "images",
@@ -9,13 +9,14 @@ export const Tone = ({ id, tones, image }) => {
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
-    }), [])
+    }))
+
 
     return (
         <img
-            key={id}
             className="images file-img"
             ref={drag}
+            id={id}
             src={image}
             alt="Tone Image"
             width="150px"

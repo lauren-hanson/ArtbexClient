@@ -1,6 +1,6 @@
 import { useDrag } from "react-dnd";
 
-export const Format = ({ id, formats, image }) => {
+export const Format = ({ id, image }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "images",
@@ -8,14 +8,14 @@ export const Format = ({ id, formats, image }) => {
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
-    }), [])
+    }))
 
     return (
         <>
             <img
                 className="images file-img"
                 ref={drag}
-                key={formats.id}
+                id={id}
                 src={image}
                 alt="Format Image"
                 width="150px"
