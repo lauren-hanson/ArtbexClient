@@ -6,7 +6,7 @@ import { Audience } from "../audience/Audience"
 import { Production } from "../production/Production"
 
 
-export const PictureList = ({ id, key, tones, formats, audiences, productions }) => {
+export const PictureList = ({ id, tones, formats, audiences, productions }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "images",
@@ -18,7 +18,7 @@ export const PictureList = ({ id, key, tones, formats, audiences, productions })
 
     return (
         <>
-            <div key={key} ref={drag}>
+            <div ref={drag}>
                 <div className="verticalImageList left imageList" >
                     <h4>Tones</h4>
                     {tones.map((t) => {

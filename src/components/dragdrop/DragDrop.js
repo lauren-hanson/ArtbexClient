@@ -5,8 +5,12 @@ import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
 export const DragDrop = () => {
 
-    const [board, setBoard] = useState([
-    ])
+    const [board, setBoard] = useState([])
+    // const [newBoard, `setNewBoard`] = useState({
+    //     id: 0,
+    //     imageUrl: ""
+    // })
+
     const [images, setImages] = useState([])
 
     const [productions, setProductions] = useState([])
@@ -16,7 +20,7 @@ export const DragDrop = () => {
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "images",
-        drop: (item) => addImageToBoard(item.id, images),
+        drop: (item) => addImageToBoard(item.id),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
@@ -44,6 +48,7 @@ export const DragDrop = () => {
     const addImageToBoard = (id) => {
         console.log(`Adding image with id ${id} to board...`)
         const picture = images.filter((picture) => id === picture.id)
+        
         console.log(`Found picture: ${JSON.stringify(picture)}`)
         if (picture) {
             setBoard((board) => [...board, picture[0]])
