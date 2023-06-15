@@ -1,26 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd"
 import { PictureList } from "./PictureList"
+import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
 export const DragDrop = () => {
 
-    const [board, setBoard] = useState([
-    ])
+    const [board, setBoard] = useState([])
+
+    const [newArtBex, setNewArtBex] = useState({
+        id: 0,
+        images: "", 
+        startDate: "", 
+        endDate: "", 
+        notes: ""
+    })
+
     const [images, setImages] = useState([])
+    const [imagesToSend, setImagesToSend] = useState([])
 
     const [productions, setProductions] = useState([])
     const [audiences, setAudiences] = useState([])
     const [formats, setFormats] = useState([])
     const [tones, setTones] = useState([])
 
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: "images",
-        drop: (item) => addImageToBoard(item.id, images),
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-        }),
-    }))
+    const imagePromise = (body) => {
+        return fetch(`http://localhost:8000/artbeximages`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        })
+    }
 
     useEffect(() => {
         getImages().then((i) => {
@@ -41,33 +53,111 @@ export const DragDrop = () => {
     }, [])
 
 
+    const [{ isOver }, drop] = useDrop(() => ({
+        accept: "image",
+        drop: (item) => {
+            addImageToBoard(item.id)
+            console.log(item)
+        },
+        collect: (monitor) => ({
+            isOver: !!monitor.isOver(),
+        }),
+    }))
+
+    const handleNewArtBex = (event) => {
+        const artBex = Object.assign({}, newArtBex)
+        artBex[event.target.name] = event.target.value
+        setNewArtBex(artBex)
+    }
+
+    const publishNewArtBex = () => {
+
+        addNewArtBex({
+            startDate: newArtBex.startDate,
+            endDate: newArtBex.endDate,
+            notes: newArtBex.notes,
+            images: imagesToSend
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                let APIImages = imagesToSend.map(image => {
+                    return {
+                        image_id: image,
+                        artbex_id: res.id
+                    }
+                })
+                Promise.all(APIImages.map(image => {
+                    imagePromise(image)
+                }))
+            })
+    }
+
+
     const addImageToBoard = (id) => {
-        console.log(`Adding image with id ${id} to board...`)
-        const picture = images.filter((picture) => id === picture.id)
-        console.log(`Found picture: ${JSON.stringify(picture)}`)
+        const picture = images.find((image) => id === image.id)
+
         if (picture) {
-            setBoard((board) => [...board, picture[0]])
+            setBoard((board) => [...board, picture])
         }
     }
 
 
     return (
         <>
-            <div className="Pictures">
-                <PictureList formats={formats} productions={productions} audiences={audiences} tones={tones} />
-
-            </div>
-            <div className="createBox" ref={drop} key={`images--${images?.id}`}>
-                {board.map((i) => {
-                    return <div key={i?.id}>
-                        {console.log(`Image URL: ${i?.imageUrl}`)}
-                        <img
-                            src={i?.imageUrl}
-                        // alt="img"
-                        />
+            <form>
+                <fieldset>
+                    <h3>Start Date:</h3>
+                    <div className="form-group">
+                        <input
+                            type="date"
+                            name="startDate"
+                            required autoFocus
+                            className="title-form-control"
+                            placeholder="startDate"
+                            onChange={handleNewArtBex} />
                     </div>
-                })}
-            </div>
+                </fieldset>
+                <fieldset>
+                    <h3>End Date:</h3>
+                    <div className="form-group">
+                        <input
+                            type="date"
+                            name="endDate"
+                            required autoFocus
+                            className="title-form-control"
+                            placeholder="endDate"
+                            onChange={handleNewArtBex} />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <textarea
+                            type="textbox"
+                            rows="10" cols="75" name="notes" 
+                            required autoFocus
+                            className="title-form-control"
+                            onChange={handleNewArtBex} />
+                    </div>
+                </fieldset>
+                <div className="Pictures">
+                    <PictureList
+                        id={board.length + 1}
+                        formats={formats}
+                        productions={productions}
+                        audiences={audiences}
+                        tones={tones} />
+
+                </div>
+                <div className="createBox" ref={drop} key={`images--${images?.id}`}>
+                    {board.map((i) => (
+                        <div key={`i--${i?.id}`}>
+                            <img
+                                src={i?.image}
+                                alt="img" />
+                        </div>
+                    ))}
+                </div>
+            </form>
 
         </>
     )

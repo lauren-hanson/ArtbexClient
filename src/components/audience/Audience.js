@@ -4,8 +4,8 @@ import { useDrag } from "react-dnd";
 export const Audience = ({ id, image }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: "images",
-        item: { id: id },
+        type: "image",
+        item: { id },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
