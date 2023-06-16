@@ -9,11 +9,6 @@ export const DragDrop = () => {
     const [board, setBoard] = useState([])
 
     const [newArtBex, setNewArtBex] = useState({
-        id: 0,
-        images: "", 
-        startDate: "", 
-        endDate: "", 
-        notes: ""
     })
 
     const [images, setImages] = useState([])
@@ -97,7 +92,7 @@ export const DragDrop = () => {
         const picture = images.find((image) => id === image.id)
 
         if (picture) {
-            setBoard((board) => [...board, picture])
+            setNewArtBex((newArtBex) => [...newArtBex, picture])
         }
     }
 
@@ -133,13 +128,63 @@ export const DragDrop = () => {
                     <div className="form-group">
                         <textarea
                             type="textbox"
-                            rows="10" cols="75" name="notes" 
+                            rows="10" cols="75" name="notes"
                             required autoFocus
                             className="title-form-control"
                             onChange={handleNewArtBex} />
                     </div>
                 </fieldset>
-                <div className="Pictures">
+                <fieldset>
+                    <div className="form-group tagGroup">
+                        <div className="Pictures">
+                            <PictureList
+                                onChange={handleNewArtBex}
+                                id={board.length + 1}
+                                formats={formats}
+                                productions={productions}
+                                audiences={audiences}
+                                tones={tones} />
+
+                        </div>
+                        <div className="createBox" ref={drop} key={`images--${images?.id}`}>
+                            {board.map((i) => (
+                                <div key={`i--${i?.id}`}>
+                                    <img
+                                        src={i?.image}
+                                        alt="img" />
+                                </div>
+                            ))}
+                        </div>
+                        {/* {images.map(image => (
+                            <div className="images">
+                                <input
+                                    name="image"
+                                    type="image"
+                                    required autoFocus
+                                    className="form-control"
+                                    placeholder="image"
+                                    onChange={(event) => {
+                                        if (event.target.checked) {
+                                            let copy = [...imagesToSend]
+                                            copy.push(parseInt(event.target.value))
+                                            setImagesToSend(copy)
+                                        } else {
+                                            let copy = [...imagesToSend]
+                                            let index = copy.indexOf(parseInt(event.target.value))
+                                            copy.splice(index)
+                                            setImagesToSend(copy)
+                                        }
+                                    }}
+                                />
+
+                                    <img
+                                        src={image?.image} />
+                            </div>
+                        ))} */}
+
+                    </div>
+                </fieldset>
+                {/* <div className="Pictures">
                     <PictureList
                         id={board.length + 1}
                         formats={formats}
@@ -147,8 +192,8 @@ export const DragDrop = () => {
                         audiences={audiences}
                         tones={tones} />
 
-                </div>
-                <div className="createBox" ref={drop} key={`images--${images?.id}`}>
+                </div> */}
+                {/* <div className="createBox" ref={drop} key={`images--${images?.id}`}>
                     {board.map((i) => (
                         <div key={`i--${i?.id}`}>
                             <img
@@ -156,7 +201,15 @@ export const DragDrop = () => {
                                 alt="img" />
                         </div>
                     ))}
-                </div>
+                </div> */}
+                <button type="publish" className="publishArtBexButton"
+                    onClick={evt => {
+                        evt.preventDefault()
+                        publishNewArtBex()
+                    }}
+                >
+                    Submit
+                </button>
             </form>
 
         </>

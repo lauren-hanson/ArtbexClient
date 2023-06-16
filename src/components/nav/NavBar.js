@@ -1,14 +1,21 @@
-import { PublicNavBar } from "./PublicNavBar"
+import { Link } from "react-router-dom"
 import "./NavBar.css"
 
 export const NavBar = () => {
 
-    const localFatBackUser = localStorage.getItem("fatback_user")
-    const fatbackUserObject = JSON.parse(localFatBackUser)
+    return (
+        <ul className="navbar">
 
-    return(<>
-    <PublicNavBar/>
-    </>)
+            <li className="navbar_item active">
+                <Link className="navbar_link" to="/">create</Link>
+                <Link to="/submissions" className="navbar-item">
+                    Submissions
+                </Link>
+            </li>
+
+        </ul>
+
+    )
 
 }
     // if (!fatbackUserObject) {
