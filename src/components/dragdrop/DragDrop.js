@@ -9,6 +9,10 @@ export const DragDrop = () => {
     const [board, setBoard] = useState([])
 
     const [newArtBex, setNewArtBex] = useState({
+        startDate: "",
+        endDate: "",
+        notes: "",
+        images: []
     })
 
     const [images, setImages] = useState([])
@@ -65,26 +69,32 @@ export const DragDrop = () => {
         setNewArtBex(artBex)
     }
 
-    const publishNewArtBex = () => {
+    const publishNewArtBex = (event) => {
+        event.preventDefault()
 
-        addNewArtBex({
+        const creation = {
             startDate: newArtBex.startDate,
             endDate: newArtBex.endDate,
             notes: newArtBex.notes,
             images: imagesToSend
-        })
+        }
+
+        addNewArtBex(creation)
             .then((res) => res.json())
-            .then((res) => {
-                let APIImages = imagesToSend.map(image => {
-                    return {
-                        image_id: image,
-                        artbex_id: res.id
-                    }
-                })
-                Promise.all(APIImages.map(image => {
-                    imagePromise(image)
-                }))
+            // .then((res) => {
+            //     let APIImages = imagesToSend.map(image => {
+            //         return {
+            //             image_id: image,
+            //             artbex_id: res.id
+            //         }
+            //     })
+            //     Promise.all(APIImages.map(image => {
+            //         imagePromise(image)
+            //     }))
+            .then(response => {
+                alert('ArtBex created!')
             })
+        // })
     }
 
 
@@ -99,7 +109,8 @@ export const DragDrop = () => {
 
     return (
         <>
-            <form>
+            <form
+                onSubmit={publishNewArtBex}>
                 <fieldset>
                     <h3>Start Date:</h3>
                     <div className="form-group">
@@ -136,7 +147,7 @@ export const DragDrop = () => {
                 </fieldset>
                 <fieldset>
                     <div className="form-group tagGroup">
-                        <div className="Pictures">
+                        {/* <div className="Pictures">
                             <PictureList
                                 onChange={handleNewArtBex}
                                 id={board.length + 1}
@@ -154,7 +165,7 @@ export const DragDrop = () => {
                                         alt="img" />
                                 </div>
                             ))}
-                        </div>
+                        </div> */}
                         {/* {images.map(image => (
                             <div className="images">
                                 <input
@@ -203,10 +214,10 @@ export const DragDrop = () => {
                     ))}
                 </div> */}
                 <button type="publish" className="publishArtBexButton"
-                    onClick={evt => {
-                        evt.preventDefault()
-                        publishNewArtBex()
-                    }}
+                // onClick={evt => {
+                //     evt.preventDefault()
+                //     publishNewArtBex()
+                // }}
                 >
                     Submit
                 </button>

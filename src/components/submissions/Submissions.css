@@ -1,0 +1,8 @@
+.submission { 
+    width: 50%; 
+}
+
+.subImages { 
+    display: flex;
+    flex-direction: row; 
+}
