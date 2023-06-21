@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd"
-// import { PictureList } from "./PictureList"
+import { PictureList } from "./PictureList"
 import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
-export const DragDrop = () => {
+export const CreateArtBex = () => {
 
-    const [board, setBoard] = useState([])
+    // const [board, setBoard] = useState([])
 
     const [newArtBex, setNewArtBex] = useState([{
         startDate: "",
@@ -18,10 +18,10 @@ export const DragDrop = () => {
     const [images, setImages] = useState([])
     const [selectedImages, setSelectedImages] = useState([])
 
-    // const [productions, setProductions] = useState([])
-    // const [audiences, setAudiences] = useState([])
-    // const [formats, setFormats] = useState([])
-    // const [tones, setTones] = useState([])
+    const [productions, setProductions] = useState([])
+    const [audiences, setAudiences] = useState([])
+    const [formats, setFormats] = useState([])
+    const [tones, setTones] = useState([])
 
     const imagePromise = (body) => {
         return fetch(`http://localhost:8000/artbeximages`, {
@@ -37,18 +37,18 @@ export const DragDrop = () => {
         getImages().then((i) => {
             setImages(i)
         })
-        // getImageByCategory(1).then((production) => {
-        //     setProductions(production)
-        // })
-        // getImageByCategory(2).then((format) => {
-        //     setFormats(format)
-        // })
-        // getImageByCategory(3).then((tone) => {
-        //     setTones(tone)
-        // })
-        // getImageByCategory(4).then((audience) => {
-        //     setAudiences(audience)
-        // })
+        getImageByCategory(1).then((production) => {
+            setProductions(production)
+        })
+        getImageByCategory(2).then((format) => {
+            setFormats(format)
+        })
+        getImageByCategory(3).then((tone) => {
+            setTones(tone)
+        })
+        getImageByCategory(4).then((audience) => {
+            setAudiences(audience)
+        })
     }, [])
 
 
@@ -177,9 +177,7 @@ export const DragDrop = () => {
                                         key={`image--${image?.id}`}
                                         value={image?.id}
                                     >
-
                                         {image?.type}
-
                                     </option>
                                 </label>
                             </div>

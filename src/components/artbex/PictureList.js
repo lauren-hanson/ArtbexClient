@@ -1,9 +1,9 @@
 import React from "react";
 import { useDrag } from "react-dnd"
-import { Tone } from "../tone/Tone"
-import { Format } from "../format/Format"
-import { Audience } from "../audience/Audience"
-import { Production } from "../production/Production"
+import { ToneList } from "../tone/ToneList"
+import { FormatList } from "../format/FormatList"
+import { AudienceList } from "../audience/AudienceList"
+import { ProductionList } from "../production/ProductionList"
 
 
 export const PictureList = ({ id, tones, formats, audiences, productions }) => {
@@ -32,26 +32,26 @@ export const PictureList = ({ id, tones, formats, audiences, productions }) => {
                 <div className="verticalImageList left imageList" >
                     <h4>Tones</h4>
                     {tones.map((t) => {
-                        return <Tone key={t?.id} id={t?.id} image={t?.image}
+                        return <ToneList key={t?.id} id={t?.id} image={t?.image}
                         />
                     })}
                 </div>
                 <div className="verticalImageList right ">
                     <h4>Audiences</h4>
                     {audiences.map((a) => {
-                        return <Audience key={a?.id} id={a?.id} image={a?.image} />
+                        return <AudienceList key={a?.id} id={a?.id} image={a?.image} />
                     })}
                 </div>
                 <div className="horizontalImageList top imageList">
                     <h4>Formats</h4>
                     {formats.map((f) => {
-                        return <Format key={f?.id} id={f?.id} image={f?.image} />
+                        return <FormatList key={f?.id} id={f?.id} image={f?.image} />
                     })}
                 </div>
                 <div className="horizontalImageList bottom imageList">
                     <h4>Productions</h4>
                     {productions.map((p) => {
-                        return <Production key={p?.id} id={p?.id} image={p?.image} />
+                        return <ProductionList key={p?.id} id={p?.id} image={p?.image} />
                     })}
                 </div>
             </div>
