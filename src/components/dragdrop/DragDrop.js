@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd"
-import { PictureList } from "./PictureList"
+// import { PictureList } from "./PictureList"
 import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
@@ -8,20 +8,20 @@ export const DragDrop = () => {
 
     const [board, setBoard] = useState([])
 
-    const [newArtBex, setNewArtBex] = useState({
+    const [newArtBex, setNewArtBex] = useState([{
         startDate: "",
         endDate: "",
         notes: "",
         images: []
-    })
+    }])
 
     const [images, setImages] = useState([])
-    const [imagesToSend, setImagesToSend] = useState([])
+    const [selectedImages, setSelectedImages] = useState([])
 
-    const [productions, setProductions] = useState([])
-    const [audiences, setAudiences] = useState([])
-    const [formats, setFormats] = useState([])
-    const [tones, setTones] = useState([])
+    // const [productions, setProductions] = useState([])
+    // const [audiences, setAudiences] = useState([])
+    // const [formats, setFormats] = useState([])
+    // const [tones, setTones] = useState([])
 
     const imagePromise = (body) => {
         return fetch(`http://localhost:8000/artbeximages`, {
@@ -37,31 +37,31 @@ export const DragDrop = () => {
         getImages().then((i) => {
             setImages(i)
         })
-        getImageByCategory(1).then((production) => {
-            setProductions(production)
-        })
-        getImageByCategory(2).then((format) => {
-            setFormats(format)
-        })
-        getImageByCategory(3).then((tone) => {
-            setTones(tone)
-        })
-        getImageByCategory(4).then((audience) => {
-            setAudiences(audience)
-        })
+        // getImageByCategory(1).then((production) => {
+        //     setProductions(production)
+        // })
+        // getImageByCategory(2).then((format) => {
+        //     setFormats(format)
+        // })
+        // getImageByCategory(3).then((tone) => {
+        //     setTones(tone)
+        // })
+        // getImageByCategory(4).then((audience) => {
+        //     setAudiences(audience)
+        // })
     }, [])
 
 
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: "image",
-        drop: (item) => {
-            addImageToBoard(item.id)
-            console.log(item)
-        },
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-        }),
-    }))
+    // const [{ isOver }, drop] = useDrop(() => ({
+    //     accept: "image",
+    //     drop: (item) => {
+    //         addImageToBoard(item.id)
+    //         console.log(item)
+    //     },
+    //     collect: (monitor) => ({
+    //         isOver: !!monitor.isOver(),
+    //     }),
+    // }))
 
     const handleNewArtBex = (event) => {
         const artBex = Object.assign({}, newArtBex)
@@ -69,42 +69,42 @@ export const DragDrop = () => {
         setNewArtBex(artBex)
     }
 
-    const publishNewArtBex = (event) => {
-        event.preventDefault()
+
+    const publishNewArtBex = () => {
 
         const creation = {
             startDate: newArtBex.startDate,
             endDate: newArtBex.endDate,
             notes: newArtBex.notes,
-            images: imagesToSend
+            images: selectedImages
         }
 
         addNewArtBex(creation)
             .then((res) => res.json())
-            // .then((res) => {
-            //     let APIImages = imagesToSend.map(image => {
-            //         return {
-            //             image_id: image,
-            //             artbex_id: res.id
-            //         }
-            //     })
-            //     Promise.all(APIImages.map(image => {
-            //         imagePromise(image)
-            //     }))
-            .then(response => {
-                alert('ArtBex created!')
+            .then((res) => {
+                let APIImages = selectedImages.map(image => {
+                    return {
+                        image_id: image,
+                        artbex_id: res.id
+                    }
+                })
+                Promise.all(APIImages.map(image => {
+                    imagePromise(image)
+                }))
+                    .then(response => {
+                        alert('ArtBex created!')
+                    })
             })
-        // })
     }
 
 
-    const addImageToBoard = (id) => {
-        const picture = images.find((image) => id === image.id)
+    // const addImageToBoard = (id) => {
+    //         const picture = images.find((image) => id === image.id)
 
-        if (picture) {
-            setNewArtBex((newArtBex) => [...newArtBex, picture])
-        }
-    }
+    //         if (picture) {
+    //             setNewArtBex((newArtBex) => [...newArtBex, picture])
+    //         }
+    //     }
 
 
     return (
@@ -136,6 +136,7 @@ export const DragDrop = () => {
                     </div>
                 </fieldset>
                 <fieldset>
+                    <h3>Notes:</h3>
                     <div className="form-group">
                         <textarea
                             type="textbox"
@@ -146,10 +147,51 @@ export const DragDrop = () => {
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div className="form-group tagGroup">
-                        {/* <div className="Pictures">
+                    <div className="form-group">
+                        {images.map(image => (
+                            <div className="images">
+                                <input
+                                    name="imageId"
+                                    type="checkbox"
+                                    className="form-control"
+                                    placeholder="image"
+                                    value={image.id}
+                                    onChange={(event) => {
+                                        if (event.target.checked) {
+                                            let copy = [...selectedImages]
+                                            copy.push(parseInt(event.target.value))
+                                            setSelectedImages(copy)
+                                        } else {
+                                            let copy = [...selectedImages]
+                                            let index = copy.indexOf(parseInt(event.target.value))
+                                            copy.splice(index)
+                                            setSelectedImages(copy)
+                                        }
+                                    }}
+                                />
+                                <label className="imageLabel">
+                                    <option
+                                        key={`image--${image.id}`}
+                                        value={image.id}
+                                    >
+                                        {image.id}
+                                    </option>
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </fieldset>
+                {/* <div>
+                        <div className="Pictures">
                             <PictureList
-                                onChange={handleNewArtBex}
+                                // onChange={handleNewArtBex}
+                                onChange={(event) => {
+                                    const copy = { ...newArtBex }
+                                    copy.pictureId = parseInt(event.target.value)
+                                    setNewArtBex(copy)
+                                }}
+                                name="image"
+                                value={images.id}
                                 id={board.length + 1}
                                 formats={formats}
                                 productions={productions}
@@ -165,60 +207,17 @@ export const DragDrop = () => {
                                         alt="img" />
                                 </div>
                             ))}
-                        </div> */}
-                        {/* {images.map(image => (
-                            <div className="images">
-                                <input
-                                    name="image"
-                                    type="image"
-                                    required autoFocus
-                                    className="form-control"
-                                    placeholder="image"
-                                    onChange={(event) => {
-                                        if (event.target.checked) {
-                                            let copy = [...imagesToSend]
-                                            copy.push(parseInt(event.target.value))
-                                            setImagesToSend(copy)
-                                        } else {
-                                            let copy = [...imagesToSend]
-                                            let index = copy.indexOf(parseInt(event.target.value))
-                                            copy.splice(index)
-                                            setImagesToSend(copy)
-                                        }
-                                    }}
-                                />
-
-                                    <img
-                                        src={image?.image} />
-                            </div>
-                        ))} */}
-
-                    </div>
-                </fieldset>
-                {/* <div className="Pictures">
-                    <PictureList
-                        id={board.length + 1}
-                        formats={formats}
-                        productions={productions}
-                        audiences={audiences}
-                        tones={tones} />
-
-                </div> */}
-                {/* <div className="createBox" ref={drop} key={`images--${images?.id}`}>
-                    {board.map((i) => (
-                        <div key={`i--${i?.id}`}>
-                            <img
-                                src={i?.image}
-                                alt="img" />
                         </div>
-                    ))}
-                </div> */}
-                <button type="publish" className="publishArtBexButton"
-                // onClick={evt => {
-                //     evt.preventDefault()
-                //     publishNewArtBex()
-                // }}
-                >
+
+                    </div> */}
+
+                <button
+                    type="publish"
+                    className="publishArtBexButton"
+                    onClick={evt => {
+                        evt.preventDefault()
+                        publishNewArtBex()
+                    }}>
                     Submit
                 </button>
             </form>

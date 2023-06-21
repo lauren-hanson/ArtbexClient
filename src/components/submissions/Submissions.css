@@ -1,8 +1,17 @@
-.submission { 
-    width: 50%; 
+.submissions {
+    margin: 1rem;
 }
 
-.subImages { 
+.submission {
+    padding: 1rem;
+}
+
+.subImages {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
+}
+
+.subImage {
+    width: 5rem;
+    margin: 1rem;
 }
