@@ -110,31 +110,34 @@ export const DragDrop = () => {
     return (
         <>
             <form
+                className="artBexForm"
                 onSubmit={publishNewArtBex}>
-                <fieldset>
-                    <h3>Start Date:</h3>
-                    <div className="form-group">
-                        <input
-                            type="date"
-                            name="startDate"
-                            required autoFocus
-                            className="title-form-control"
-                            placeholder="startDate"
-                            onChange={handleNewArtBex} />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <h3>End Date:</h3>
-                    <div className="form-group">
-                        <input
-                            type="date"
-                            name="endDate"
-                            required autoFocus
-                            className="title-form-control"
-                            placeholder="endDate"
-                            onChange={handleNewArtBex} />
-                    </div>
-                </fieldset>
+                <div className="dateContainer">
+                    <fieldset>
+                        <h3>Start Date:</h3>
+                        <div className="form-group">
+                            <input
+                                type="date"
+                                name="startDate"
+                                required autoFocus
+                                className="title-form-control"
+                                placeholder="startDate"
+                                onChange={handleNewArtBex} />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <h3>End Date:</h3>
+                        <div className="form-group">
+                            <input
+                                type="date"
+                                name="endDate"
+                                required autoFocus
+                                className="title-form-control"
+                                placeholder="endDate"
+                                onChange={handleNewArtBex} />
+                        </div>
+                    </fieldset>
+                </div>
                 <fieldset>
                     <h3>Notes:</h3>
                     <div className="form-group">
@@ -147,7 +150,7 @@ export const DragDrop = () => {
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div className="form-group">
+                    <div className="form-group imageGroup">
                         {images.map(image => (
                             <div className="images">
                                 <input
@@ -171,10 +174,12 @@ export const DragDrop = () => {
                                 />
                                 <label className="imageLabel">
                                     <option
-                                        key={`image--${image.id}`}
-                                        value={image.id}
+                                        key={`image--${image?.id}`}
+                                        value={image?.id}
                                     >
-                                        {image.id}
+
+                                        {image?.type}
+
                                     </option>
                                 </label>
                             </div>

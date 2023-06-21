@@ -12,15 +12,27 @@ code {
     monospace;
 }
 
+.artBexForm {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: fit-content;
+}
+
+fieldset {
+  border: 0;
+}
 
 .createBox {
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  width: 20rem; 
-  height: 20rem; 
-  margin-left: 23%; 
+  width: 20rem;
+  height: 20rem;
+  margin-left: 23%;
   border: 1px solid darkolivegreen;
 }
 
@@ -51,7 +63,7 @@ code {
 .bottom {
   bottom: 0px;
   position: absolute;
-  margin-left: 20%; 
+  margin-left: 20%;
 }
 
 .right {
@@ -75,18 +87,6 @@ code {
 
 }
 
-/* .app {
-  text-align: center;
-  width: 100vw;
-  height: 100vh;
-} */
-
-/* .App {
-  text-align: center;
-  width: 100vw;
-  height: 100vh;
-} */
-
 .Pictures {
   margin: 10px;
 }
@@ -94,4 +94,32 @@ code {
 img {
   width: 10rem;
   height: 10rem;
+}
+
+.dateContainer { 
+  display: flex; 
+}
+
+.imageGroup {
+  display: flex;
+  flex-flow: row wrap; 
+  justify-content: center;
+}
+
+.images {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  float: left;
+  width: 33%;
+  height: 15px;
+}
+
+.imageLabel {
+  margin-right: 15px;
+  line-height: 20px;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  margin-left: 10px;
 }

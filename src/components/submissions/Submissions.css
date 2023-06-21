@@ -1,5 +1,10 @@
 .submissions {
-    margin: 1rem;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: fit-content;
 }
 
 .submission {
@@ -8,10 +13,9 @@
 
 .subImages {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
 }
 
 .subImage {
-    width: 5rem;
     margin: 1rem;
 }
