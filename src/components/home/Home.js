@@ -1,4 +1,4 @@
-import { DragDrop } from "../dragdrop/DragDrop"
+import { CreateArtBex } from "../artbex/CreateArtBex"
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -9,7 +9,7 @@ export const Home = () => {
             backend={HTML5Backend}
             className="boxContainer">
             <div className="app">
-                <DragDrop />
+                <CreateArtBex />
             </div>
         </DndProvider>)
 }

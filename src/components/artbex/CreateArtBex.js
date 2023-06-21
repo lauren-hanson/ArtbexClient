@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd"
-// import { PictureList } from "./PictureList"
+import { PictureList } from "./PictureList"
 import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
-export const DragDrop = () => {
+export const CreateArtBex = () => {
 
-    const [board, setBoard] = useState([])
+    // const [board, setBoard] = useState([])
 
     const [newArtBex, setNewArtBex] = useState([{
         startDate: "",
@@ -18,10 +18,10 @@ export const DragDrop = () => {
     const [images, setImages] = useState([])
     const [selectedImages, setSelectedImages] = useState([])
 
-    // const [productions, setProductions] = useState([])
-    // const [audiences, setAudiences] = useState([])
-    // const [formats, setFormats] = useState([])
-    // const [tones, setTones] = useState([])
+    const [productions, setProductions] = useState([])
+    const [audiences, setAudiences] = useState([])
+    const [formats, setFormats] = useState([])
+    const [tones, setTones] = useState([])
 
     const imagePromise = (body) => {
         return fetch(`http://localhost:8000/artbeximages`, {
@@ -37,18 +37,18 @@ export const DragDrop = () => {
         getImages().then((i) => {
             setImages(i)
         })
-        // getImageByCategory(1).then((production) => {
-        //     setProductions(production)
-        // })
-        // getImageByCategory(2).then((format) => {
-        //     setFormats(format)
-        // })
-        // getImageByCategory(3).then((tone) => {
-        //     setTones(tone)
-        // })
-        // getImageByCategory(4).then((audience) => {
-        //     setAudiences(audience)
-        // })
+        getImageByCategory(1).then((production) => {
+            setProductions(production)
+        })
+        getImageByCategory(2).then((format) => {
+            setFormats(format)
+        })
+        getImageByCategory(3).then((tone) => {
+            setTones(tone)
+        })
+        getImageByCategory(4).then((audience) => {
+            setAudiences(audience)
+        })
     }, [])
 
 
@@ -110,31 +110,34 @@ export const DragDrop = () => {
     return (
         <>
             <form
+                className="artBexForm"
                 onSubmit={publishNewArtBex}>
-                <fieldset>
-                    <h3>Start Date:</h3>
-                    <div className="form-group">
-                        <input
-                            type="date"
-                            name="startDate"
-                            required autoFocus
-                            className="title-form-control"
-                            placeholder="startDate"
-                            onChange={handleNewArtBex} />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <h3>End Date:</h3>
-                    <div className="form-group">
-                        <input
-                            type="date"
-                            name="endDate"
-                            required autoFocus
-                            className="title-form-control"
-                            placeholder="endDate"
-                            onChange={handleNewArtBex} />
-                    </div>
-                </fieldset>
+                <div className="dateContainer">
+                    <fieldset>
+                        <h3>Start Date:</h3>
+                        <div className="form-group">
+                            <input
+                                type="date"
+                                name="startDate"
+                                required autoFocus
+                                className="title-form-control"
+                                placeholder="startDate"
+                                onChange={handleNewArtBex} />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <h3>End Date:</h3>
+                        <div className="form-group">
+                            <input
+                                type="date"
+                                name="endDate"
+                                required autoFocus
+                                className="title-form-control"
+                                placeholder="endDate"
+                                onChange={handleNewArtBex} />
+                        </div>
+                    </fieldset>
+                </div>
                 <fieldset>
                     <h3>Notes:</h3>
                     <div className="form-group">
@@ -147,7 +150,7 @@ export const DragDrop = () => {
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div className="form-group">
+                    <div className="form-group imageGroup">
                         {images.map(image => (
                             <div className="images">
                                 <input
@@ -171,10 +174,10 @@ export const DragDrop = () => {
                                 />
                                 <label className="imageLabel">
                                     <option
-                                        key={`image--${image.id}`}
-                                        value={image.id}
+                                        key={`image--${image?.id}`}
+                                        value={image?.id}
                                     >
-                                        {image.id}
+                                        {image?.type}
                                     </option>
                                 </label>
                             </div>

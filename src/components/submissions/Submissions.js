@@ -15,22 +15,22 @@ export const Submissions = () => {
     }, [])
 
     return (<>
-        <h2>List of Submissions.</h2>
         <div className="submissions">
+            <h2>List of Submissions.</h2>
             {submissions.map((sub) => {
                 return <div className="submission">
-                    <HumanDate date={sub?.startDate} /> - <HumanDate date={sub?.endDate} />
-                    <div className="subImages">
-                        {sub.images.map((i) => (
-                            <ol key={i.id} className="subImage">
-                                <img src={i.image} />
-                            </ol>))}
+                        <HumanDate date={sub?.startDate} /> - <HumanDate date={sub?.endDate} />
+                        <div className="subImages">
+                            {sub.images.map((i) => (
+                                <ol key={i.id} className="subImage">
+                                    <img src={i.image} />
+                                </ol>))}
+                        </div>
+                        <div>
+                            {sub.notes}
+                        </div>
                     </div>
-                    <div>
-                        {sub.notes}
-                    </div>
-                </div>
             })}
-        </div>
+                </div>
     </>)
 }
