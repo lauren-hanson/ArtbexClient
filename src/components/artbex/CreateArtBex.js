@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend"
+import { DndProvider } from "react-dnd"
 import { PictureList } from "./PictureList"
 import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
 export const CreateArtBex = () => {
 
-    // const [board, setBoard] = useState([])
+    const [board, setBoard] = useState([])
 
     const [newArtBex, setNewArtBex] = useState([{
         startDate: "",
@@ -52,16 +54,16 @@ export const CreateArtBex = () => {
     }, [])
 
 
-    // const [{ isOver }, drop] = useDrop(() => ({
-    //     accept: "image",
-    //     drop: (item) => {
-    //         addImageToBoard(item.id)
-    //         console.log(item)
-    //     },
-    //     collect: (monitor) => ({
-    //         isOver: !!monitor.isOver(),
-    //     }),
-    // }))
+    const [{ isOver }, drop] = useDrop(() => ({
+        accept: "image",
+        drop: (item) => {
+            addImageToBoard(item.id)
+            console.log(item)
+        },
+        collect: (monitor) => ({
+            isOver: !!monitor.isOver(),
+        }),
+    }))
 
     const handleNewArtBex = (event) => {
         const artBex = Object.assign({}, newArtBex)
@@ -98,13 +100,13 @@ export const CreateArtBex = () => {
     }
 
 
-    // const addImageToBoard = (id) => {
-    //         const picture = images.find((image) => id === image.id)
+    const addImageToBoard = (id) => {
+        const picture = images.find((image) => id === image.id)
 
-    //         if (picture) {
-    //             setNewArtBex((newArtBex) => [...newArtBex, picture])
-    //         }
-    //     }
+        if (picture) {
+            setNewArtBex((newArtBex) => [...newArtBex, picture])
+        }
+    }
 
 
     return (
@@ -150,40 +152,22 @@ export const CreateArtBex = () => {
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div className="form-group imageGroup">
-                        {images.map(image => (
-                            <div
-                                className="images"
-                                key={`image--${image?.id}`}>
-                                <input
+                    <DndProvider backend={HTML5Backend}>
+                        <div className="form-group imageGroup">
+                            {images.map((image) => (
+                                <img src={image?.image} />
 
-                                    name="imageId"
-                                    type="checkbox"
-                                    className="form-control"
-                                    placeholder="image"
-                                    value={image.id}
-                                    onChange={(event) => {
-                                        if (event.target.checked) {
-                                            let copy = [...selectedImages]
-                                            copy.push(parseInt(event.target.value))
-                                            setSelectedImages(copy)
-                                        } else {
-                                            let copy = [...selectedImages]
-                                            let index = copy.indexOf(parseInt(event.target.value))
-                                            copy.splice(index)
-                                            setSelectedImages(copy)
-                                        }
-                                    }}
-                                />
-                                <label>
-                                    <img
-                                        src={image?.image}
-                                        alt="img"
-                                        className="imageLabel" />
-                                </label>
+                            ))}
+                            <div className="createBox" ref={drop}>
+                                {board.map((i) => (
+                                    <div key={`i--${i?.id}`}>
+                                        <img src={i?.image} alt="img" />
+                                    </div>
+                                ))}
+
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    </DndProvider>
                 </fieldset>
                 {/* <div>
                         <div className="Pictures">
