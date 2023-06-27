@@ -6,7 +6,7 @@ import { AudienceList } from "../audience/AudienceList"
 import { ProductionList } from "../production/ProductionList"
 
 
-export const PictureList = ({ id, tones, formats, audiences, productions }) => {
+export const PictureList = ({ id, tones, formats, audiences, productions, image }) => {
 
     // const [{ isDragging }, drag] = useDrag(() => ({
     //     type: "image",
@@ -18,7 +18,7 @@ export const PictureList = ({ id, tones, formats, audiences, productions }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "image",
-        item: { id },
+        item: { id: image.id },
         collect: (monitor) => ({
             isDragging: monitor.isDragging()
         })
@@ -58,3 +58,4 @@ export const PictureList = ({ id, tones, formats, audiences, productions }) => {
         </>
     )
 }
+

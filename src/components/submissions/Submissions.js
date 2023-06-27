@@ -18,7 +18,7 @@ export const Submissions = () => {
         <div className="submissions">
             <h2>List of Submissions.</h2>
             {submissions.map((sub) => {
-                return <div className="submission">
+                return <div className="submission" key={`sub--${sub?.id}`}>
                         <HumanDate date={sub?.startDate} /> - <HumanDate date={sub?.endDate} />
                         <div className="subImages">
                             {sub.images.map((i) => (
