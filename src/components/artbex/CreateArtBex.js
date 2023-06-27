@@ -152,8 +152,11 @@ export const CreateArtBex = () => {
                 <fieldset>
                     <div className="form-group imageGroup">
                         {images.map(image => (
-                            <div className="images">
+                            <div
+                                className="images"
+                                key={`image--${image?.id}`}>
                                 <input
+
                                     name="imageId"
                                     type="checkbox"
                                     className="form-control"
@@ -172,13 +175,11 @@ export const CreateArtBex = () => {
                                         }
                                     }}
                                 />
-                                <label className="imageLabel">
-                                    <option
-                                        key={`image--${image?.id}`}
-                                        value={image?.id}
-                                    >
-                                        {image?.type}
-                                    </option>
+                                <label>
+                                    <img
+                                        src={image?.image}
+                                        alt="img"
+                                        className="imageLabel" />
                                 </label>
                             </div>
                         ))}

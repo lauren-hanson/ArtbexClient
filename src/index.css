@@ -78,22 +78,8 @@ fieldset {
   width: 300px;
 }
 
-
-.images {
-  height: 50px;
-  width: 50px;
-  object-fit: fill;
-  padding: 1rem;
-
-}
-
 .Pictures {
   margin: 10px;
-}
-
-img {
-  width: 10rem;
-  height: 10rem;
 }
 
 .dateContainer { 
@@ -106,20 +92,20 @@ img {
   justify-content: center;
 }
 
-.images {
+img {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   float: left;
-  width: 33%;
-  height: 15px;
+  padding: 1rem; 
+  margin: 1rem;
+  width: 10rem;
+  height: 10rem;
 }
 
 .imageLabel {
-  margin-right: 15px;
-  line-height: 20px;
   display: flex;
   flex-direction: row;
-  font-size: 18px;
-  margin-left: 10px;
+  padding: 1rem;
+  margin: 1rem;
 }
