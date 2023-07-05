@@ -18,12 +18,12 @@ export const CreateArtBex = () => {
     }])
 
     const [images, setImages] = useState([])
-    const [selectedImages, setSelectedImages] = useState([])
+    const [selectedImages, setSelectedImages] = useState({})
 
-    const [productions, setProductions] = useState([])
-    const [audiences, setAudiences] = useState([])
-    const [formats, setFormats] = useState([])
-    const [tones, setTones] = useState([])
+    // const [productions, setProductions] = useState([])
+    // const [audiences, setAudiences] = useState([])
+    // const [formats, setFormats] = useState([])
+    // const [tones, setTones] = useState([])
 
     const imagePromise = (body) => {
         return fetch(`http://localhost:8000/artbeximages`, {
@@ -39,18 +39,18 @@ export const CreateArtBex = () => {
         getImages().then((i) => {
             setImages(i)
         })
-        getImageByCategory(1).then((production) => {
-            setProductions(production)
-        })
-        getImageByCategory(2).then((format) => {
-            setFormats(format)
-        })
-        getImageByCategory(3).then((tone) => {
-            setTones(tone)
-        })
-        getImageByCategory(4).then((audience) => {
-            setAudiences(audience)
-        })
+        // getImageByCategory(1).then((production) => {
+        //     setProductions(production)
+        // })
+        // getImageByCategory(2).then((format) => {
+        //     setFormats(format)
+        // })
+        // getImageByCategory(3).then((tone) => {
+        //     setTones(tone)
+        // })
+        // getImageByCategory(4).then((audience) => {
+        //     setAudiences(audience)
+        // })
     }, [])
 
 
@@ -152,22 +152,40 @@ export const CreateArtBex = () => {
                     </div>
                 </fieldset>
                 <fieldset>
-                    <DndProvider backend={HTML5Backend}>
-                        <div className="form-group imageGroup">
-                            {images.map((image) => (
-                                <img src={image?.image} />
+                    {/* <DndProvider backend={HTML5Backend}> */}
+                    <div className="form-group imageGroup">
+                        {images.map((image) => (
+                            <img
+                                key={`image--${image?.id}`} src={image?.image}
+                                name="imageId"
+                                value={image?.id}
+                                onChange={(event) => {
+                                    if (event.target.checked) {
+                                        let copy = [...selectedImages]
+                                        copy.push(parseInt(event.target.value))
+                                        setSelectedImages(copy)
+                                    } else {
+                                        let copy = [...selectedImages]
+                                        let index = copy.indexOf(parseInt(event.target.value))
+                                        copy.splice(index)
+                                        setSelectedImages(copy)
+                                    }
+                                }} />
 
+                        ))}
+                        <div className="createBox" ref={drop}>
+                            {board.map((i) => (
+                                <div key={`i--${i?.id}`}>
+                                    <img
+                                        src={i?.image}
+                                        value={i.id}
+                                        alt="img" />
+                                </div>
                             ))}
-                            <div className="createBox" ref={drop}>
-                                {board.map((i) => (
-                                    <div key={`i--${i?.id}`}>
-                                        <img src={i?.image} alt="img" />
-                                    </div>
-                                ))}
 
-                            </div>
                         </div>
-                    </DndProvider>
+                    </div>
+                    {/* </DndProvider> */}
                 </fieldset>
                 {/* <div>
                         <div className="Pictures">
