@@ -18,7 +18,7 @@ export const CreateArtBex = () => {
     }])
 
     const [images, setImages] = useState([])
-    const [selectedImages, setSelectedImages] = useState({})
+    const [selectedImages, setSelectedImages] = useState([])
 
     // const [productions, setProductions] = useState([])
     // const [audiences, setAudiences] = useState([])
@@ -96,6 +96,9 @@ export const CreateArtBex = () => {
                     .then(response => {
                         alert('ArtBex created!')
                     })
+                    .then(navigate => {
+                        ('/submissions')
+                    })
             })
     }
 
@@ -152,40 +155,40 @@ export const CreateArtBex = () => {
                     </div>
                 </fieldset>
                 <fieldset>
-                    {/* <DndProvider backend={HTML5Backend}> */}
                     <div className="form-group imageGroup">
                         {images.map((image) => (
-                            <img
-                                key={`image--${image?.id}`} src={image?.image}
-                                name="imageId"
-                                value={image?.id}
-                                onChange={(event) => {
-                                    if (event.target.checked) {
-                                        let copy = [...selectedImages]
-                                        copy.push(parseInt(event.target.value))
-                                        setSelectedImages(copy)
-                                    } else {
-                                        let copy = [...selectedImages]
-                                        let index = copy.indexOf(parseInt(event.target.value))
-                                        copy.splice(index)
-                                        setSelectedImages(copy)
-                                    }
-                                }} />
+                            <div
+                                className="images"
+                                key={`image--${image?.id}`}>
+                                <input
 
-                        ))}
-                        <div className="createBox" ref={drop}>
-                            {board.map((i) => (
-                                <div key={`i--${i?.id}`}>
+                                    name="imageId"
+                                    type="checkbox"
+                                    className="form-control"
+                                    placeholder="image"
+                                    value={image.id}
+                                    onChange={(event) => {
+                                        if (event.target.checked) {
+                                            let copy = [...selectedImages]
+                                            copy.push(parseInt(event.target.value))
+                                            setSelectedImages(copy)
+                                        } else {
+                                            let copy = [...selectedImages]
+                                            let index = copy.indexOf(parseInt(event.target.value))
+                                            copy.splice(index)
+                                            setSelectedImages(copy)
+                                        }
+                                    }}
+                                />
+                                <label>
                                     <img
-                                        src={i?.image}
-                                        value={i.id}
-                                        alt="img" />
-                                </div>
-                            ))}
-
-                        </div>
+                                        src={image?.image}
+                                        alt="img"
+                                        className="imageLabel" />
+                                </label>
+                            </div>
+                        ))}
                     </div>
-                    {/* </DndProvider> */}
                 </fieldset>
                 {/* <div>
                         <div className="Pictures">
