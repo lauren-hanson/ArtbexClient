@@ -49,19 +49,24 @@ export const CreateArtBex = () => {
         // })
     }, [])
 
-    const handleImageClick = (event, imageId) => {
-        event.preventDefault();
-        const parsedImageId = parseInt(imageId, 10);
-
-        if (!selectedImages.includes(parsedImageId)) {
-            setSelectedImages([...selectedImages, parsedImageId]);
-        } else {
-            setSelectedImages(selectedImages.filter((id) => id !== parsedImageId));
-        }
+    const handleImageDragStart = (event, imageId) => {
+        event.dataTransfer.setData("imageId", imageId);
     };
 
+    const handleImageDragOver = (event) => {
+        event.preventDefault();
+    };
 
+    const handleImageDrop = (event) => {
+        event.preventDefault();
+        const imageId = event.dataTransfer.getData("imageId");
+        const parsedImageId = parseInt(imageId, 10);
 
+        // Check if the image is not already in the selectedImages array
+        if (!selectedImages.includes(parsedImageId)) {
+            setSelectedImages([...selectedImages, parsedImageId]);
+        }
+    };
     const handleNewArtBex = (event) => {
         const artBex = Object.assign({}, newArtBex)
         artBex[event.target.name] = event.target.value
@@ -145,24 +150,27 @@ export const CreateArtBex = () => {
                             <div
                                 className="images"
                                 key={`image--${image?.id}`}
+                                draggable="true" // Add draggable attribute]
+                                onDragStart={(event) => handleImageDragStart(event, image.id)} // Handle the drag start event
+
                             >
                                 <label>
                                     <img
                                         src={image?.image}
                                         alt="img"
                                         className="imageLabel"
-                                        onClick={(event) => handleImageClick(event, image.id)} />
+                                    />
                                 </label>
                             </div>
                         ))}
-                        <div className="createBox">
+                        <div className="createBox" onDragOver={handleImageDragOver} onDrop={handleImageDrop}>
                             {selectedImages.map((selectedImageId) => {
                                 const selectedImage = images.find((image) => image.id === selectedImageId);
                                 if (selectedImage) {
                                     return (
                                         <div key={`selectedImage--${selectedImage.id}`}>
                                             <img
-                                                src={selectedImage.image}
+                                                src={selectedImage?.image}
                                                 alt="img"
                                             />
                                         </div>
