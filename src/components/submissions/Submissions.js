@@ -24,7 +24,8 @@ export const Submissions = () => {
                     <div className="subImages">
                         {sub.images.map((i) => (
                             <ol
-                                className="subImage">
+                                className="subImage"
+                            >
                                 <img src={i.image} />
                             </ol>))}
                     </div>

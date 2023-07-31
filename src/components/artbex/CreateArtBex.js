@@ -49,19 +49,6 @@ export const CreateArtBex = () => {
         // })
     }, [])
 
-
-    // const [{ isOver }, drop] = useDrop(() => ({
-    //     accept: "image",
-    //     drop: (item) => {
-    //         addImageToBoard(item.id)
-    //         console.log(item)
-    //     },
-    //     collect: (monitor) => ({
-    //         isOver: !!monitor.isOver(),
-    //     }),
-    // }))
-
-
     const handleImageClick = (event, imageId) => {
         event.preventDefault();
         const parsedImageId = parseInt(imageId, 10);
