@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd"
-import { HTML5Backend } from "react-dnd-html5-backend"
-import { DndProvider } from "react-dnd"
 import { PictureList } from "./PictureList"
 import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
 export const CreateArtBex = () => {
-
-    const [board, setBoard] = useState([])
 
     const [newArtBex, setNewArtBex] = useState([{
         startDate: "",
@@ -54,16 +50,30 @@ export const CreateArtBex = () => {
     }, [])
 
 
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: "image",
-        drop: (item) => {
-            addImageToBoard(item.id)
-            console.log(item)
-        },
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-        }),
-    }))
+    // const [{ isOver }, drop] = useDrop(() => ({
+    //     accept: "image",
+    //     drop: (item) => {
+    //         addImageToBoard(item.id)
+    //         console.log(item)
+    //     },
+    //     collect: (monitor) => ({
+    //         isOver: !!monitor.isOver(),
+    //     }),
+    // }))
+
+
+    const handleImageClick = (event, imageId) => {
+        event.preventDefault();
+        const parsedImageId = parseInt(imageId, 10);
+
+        if (!selectedImages.includes(parsedImageId)) {
+            setSelectedImages([...selectedImages, parsedImageId]);
+        } else {
+            setSelectedImages(selectedImages.filter((id) => id !== parsedImageId));
+        }
+    };
+
+
 
     const handleNewArtBex = (event) => {
         const artBex = Object.assign({}, newArtBex)
@@ -96,21 +106,9 @@ export const CreateArtBex = () => {
                     .then(response => {
                         alert('ArtBex created!')
                     })
-                    .then(navigate => {
-                        ('/submissions')
-                    })
+
             })
     }
-
-
-    const addImageToBoard = (id) => {
-        const picture = images.find((image) => id === image.id)
-
-        if (picture) {
-            setNewArtBex((newArtBex) => [...newArtBex, picture])
-        }
-    }
-
 
     return (
         <>
@@ -159,67 +157,36 @@ export const CreateArtBex = () => {
                         {images.map((image) => (
                             <div
                                 className="images"
-                                key={`image--${image?.id}`}>
-                                <input
-
-                                    name="imageId"
-                                    type="checkbox"
-                                    className="form-control"
-                                    placeholder="image"
-                                    value={image.id}
-                                    onChange={(event) => {
-                                        if (event.target.checked) {
-                                            let copy = [...selectedImages]
-                                            copy.push(parseInt(event.target.value))
-                                            setSelectedImages(copy)
-                                        } else {
-                                            let copy = [...selectedImages]
-                                            let index = copy.indexOf(parseInt(event.target.value))
-                                            copy.splice(index)
-                                            setSelectedImages(copy)
-                                        }
-                                    }}
-                                />
+                                key={`image--${image?.id}`}
+                            >
                                 <label>
                                     <img
                                         src={image?.image}
                                         alt="img"
-                                        className="imageLabel" />
+                                        className="imageLabel"
+                                        onClick={(event) => handleImageClick(event, image.id)} />
                                 </label>
                             </div>
                         ))}
+                        <div className="createBox">
+                            {selectedImages.map((selectedImageId) => {
+                                const selectedImage = images.find((image) => image.id === selectedImageId);
+                                if (selectedImage) {
+                                    return (
+                                        <div key={`selectedImage--${selectedImage.id}`}>
+                                            <img
+                                                src={selectedImage.image}
+                                                alt="img"
+                                            />
+                                        </div>
+                                    );
+                                }
+                                return null; // Handle the case where the selectedImage is not found in the images array.
+                            })}
+                        </div>
                     </div>
+
                 </fieldset>
-                {/* <div>
-                        <div className="Pictures">
-                            <PictureList
-                                // onChange={handleNewArtBex}
-                                onChange={(event) => {
-                                    const copy = { ...newArtBex }
-                                    copy.pictureId = parseInt(event.target.value)
-                                    setNewArtBex(copy)
-                                }}
-                                name="image"
-                                value={images.id}
-                                id={board.length + 1}
-                                formats={formats}
-                                productions={productions}
-                                audiences={audiences}
-                                tones={tones} />
-
-                        </div>
-                        <div className="createBox" ref={drop} key={`images--${images?.id}`}>
-                            {board.map((i) => (
-                                <div key={`i--${i?.id}`}>
-                                    <img
-                                        src={i?.image}
-                                        alt="img" />
-                                </div>
-                            ))}
-                        </div>
-
-                    </div> */}
-
                 <button
                     type="publish"
                     className="publishArtBexButton"
