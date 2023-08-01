@@ -3,6 +3,8 @@ import { useDrop } from "react-dnd"
 import { PictureList } from "./PictureList"
 import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDrop } from "./DragDrop";
 
 export const CreateArtBex = () => {
 
@@ -15,6 +17,7 @@ export const CreateArtBex = () => {
 
     const [images, setImages] = useState([])
     const [selectedImages, setSelectedImages] = useState([])
+    // const [updateImages, setUpdate] = useState(selectedImages)
 
     // const [productions, setProductions] = useState([])
     // const [audiences, setAudiences] = useState([])
@@ -49,24 +52,36 @@ export const CreateArtBex = () => {
         // })
     }, [])
 
-    const handleImageDragStart = (event, imageId) => {
-        event.dataTransfer.setData("imageId", imageId);
-    };
+    // const handleImageDragStart = (event, imageId) => {
+    //     event.dataTransfer.setData("imageId", imageId);
+    // }
 
-    const handleImageDragOver = (event) => {
-        event.preventDefault();
-    };
+    // const handleImageDragOver = (event) => {
+    //     event.preventDefault();
+    // }
 
-    const handleImageDrop = (event) => {
-        event.preventDefault();
-        const imageId = event.dataTransfer.getData("imageId");
-        const parsedImageId = parseInt(imageId, 10);
+    // const handleImageDrop = (event) => {
+    //     event.preventDefault();
+    //     const imageId = event.dataTransfer.getData("imageId");
+    //     const parsedImageId = parseInt(imageId, 10);
 
-        // Check if the image is not already in the selectedImages array
-        if (!selectedImages.includes(parsedImageId)) {
-            setSelectedImages([...selectedImages, parsedImageId]);
-        }
-    };
+    //     // Check if the image is not already in the selectedImages array
+    //     if (!selectedImages.includes(parsedImageId)) {
+    //         setSelectedImages([...selectedImages, parsedImageId]);
+    //     }
+
+    // }
+
+    // const handleOnDragEnd = (result) => {
+    //     if (!result.destination) return;
+    //     // creating a new array 
+    //     const newOrder = Array.from(selectedImages)
+    //     const [reorderImages] = newOrder.splice(result.source.index, 1)
+    //     newOrder.splice(result.destination.index, 0, reorderImages)
+
+    //     setUpdate(newOrder)
+    // }
+
     const handleNewArtBex = (event) => {
         const artBex = Object.assign({}, newArtBex)
         artBex[event.target.name] = event.target.value
@@ -146,30 +161,36 @@ export const CreateArtBex = () => {
                 </fieldset>
                 <fieldset>
                     <div className="form-group imageGroup">
-                        {images.map((image) => (
-                            <div
-                                className="images"
-                                key={`image--${image?.id}`}
-                                draggable="true" // Add draggable attribute]
-                                onDragStart={(event) => handleImageDragStart(event, image.id)} // Handle the drag start event
+                        <DragDrop images={images} /> 
 
-                            >
-                                <label>
-                                    <img
-                                        src={image?.image}
-                                        alt="img"
-                                        className="imageLabel"
-                                    />
-                                </label>
-                            </div>
-                        ))}
+                        {/* <ul>
+                            {images.map((image) => (
+                                <li>
+                                    <div
+                                        className="images"
+                                        key={`image--${image?.id}`}
+                                        draggable="true" // Add draggable attribute]
+                                        onDragStart={(event) => handleImageDragStart(event, image.id)} // Handle the drag start event
+                                    >
+                                        <img
+                                            src={image?.image}
+                                            alt="img"
+                                            className="imageLabel"
+                                        />
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+
                         <div className="createBox" onDragOver={handleImageDragOver} onDrop={handleImageDrop}>
                             {selectedImages.map((selectedImageId) => {
                                 const selectedImage = images.find((image) => image.id === selectedImageId);
                                 if (selectedImage) {
                                     return (
-                                        <div key={`selectedImage--${selectedImage.id}`}>
+                                        <div
+                                            key={`selectedImage--${selectedImage.id}`}>
                                             <img
+                                                className="placedImage"
                                                 src={selectedImage?.image}
                                                 alt="img"
                                             />
@@ -178,10 +199,128 @@ export const CreateArtBex = () => {
                                 }
                                 return null; // Handle the case where the selectedImage is not found in the images array.
                             })}
-                        </div>
+
+                        </div> */}
+
+
+
+                        {/* <DragDropContext onDragEnd={handleOnDragEnd}>
+                            <Droppable droppableId='images'>
+                                {(provided) => (
+                                    <ul
+                                        className="createBox"
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}>
+                                        {selectedImages.map(({ image, id }, index) => {
+                                            return (
+                                                <Draggable
+                                                    key={id}
+                                                    draggableId='image'
+                                                    index={index}>
+                                                    {(provided) => (
+                                                        <li
+                                                            {...provided.draggableProps} ref={provided.innerRef} {...provided.dragHandleProps}>
+                                                            <div>
+                                                                <img
+                                                                    className="placedImage"
+                                                                    src={image}
+                                                                    alt="img"
+                                                                />
+                                                            </div>
+                                                        </li>
+                                                    )}
+                                                </Draggable>
+                                            )
+
+                                        })}
+                                        {provided.placeholder}
+                                    </ul>
+                                )}
+
+                            </Droppable>
+                        </DragDropContext> */}
+
+
+                        {/* <DragDropContext onDragEnd={handleOnDragEnd}>
+                            <Droppable droppableId='images'>
+                                {(provided) => (
+                                    <ul
+                                        className="images"
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}>
+                                        {images.map((image, index) => {
+                                            return (
+                                                <Draggable
+                                                    className="createBox"
+                                                    draggableId='image'
+                                                    index={index}>
+                                                    {(provided) => (
+                                                        <li
+                                                            {...provided.draggableProps} ref={provided.innerRef} {...provided.dragHandleProps}>
+                                                            <div>
+                                                                <img
+                                                                    src={image.image}
+                                                                    alt="img"
+                                                                    className="imageLabel"
+                                                                />
+                                                            </div>
+                                                        </li>
+                                                    )}
+                                                </Draggable>
+                                            )
+
+                                        })}
+                                        {provided.placeholder}
+                                    </ul>
+                                )}
+
+                            </Droppable>
+                        </DragDropContext> */}
+
+
+                        {/* <ul>
+                            {updateImages.map((image) => (
+                                <li>
+                                    <div
+                                        className="images"
+                                        key={`image--${image?.id}`}
+                                        draggable="true" // Add draggable attribute]
+                                        onDragStart={(event) => handleImageDragStart(event, image.id)} // Handle the drag start event
+                                    >
+                                        <img
+                                            src={image?.image}
+                                            alt="img"
+                                            className="imageLabel"
+                                        />
+                                    </div>
+                                </li>
+                            ))}
+                        </ul> */}
+
+
+                        {/* <ul>
+                            {images.map((image) => (
+                                <li>
+                                    <div
+                                        className="images"
+                                        key={`image--${image?.id}`}
+                                        draggable="true" // Add draggable attribute]
+                                        onDragStart={(event) => handleImageDragStart(event, image.id)} // Handle the drag start event
+                                    >
+                                        <img
+                                            src={image?.image}
+                                            alt="img"
+                                            className="imageLabel"
+                                        />
+                                    </div>
+                                </li>
+                            ))}
+                        </ul> */}
+
+
                     </div>
 
-                </fieldset>
+                </fieldset >
                 <button
                     type="publish"
                     className="publishArtBexButton"
@@ -191,7 +330,7 @@ export const CreateArtBex = () => {
                     }}>
                     Submit
                 </button>
-            </form>
+            </form >
 
         </>
     )
