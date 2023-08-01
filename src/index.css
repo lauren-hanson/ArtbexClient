@@ -27,7 +27,7 @@ fieldset {
 
 .createBox {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   gap: 10px;
   width: 50rem;
   height: 50rem;
@@ -38,8 +38,12 @@ fieldset {
   width: 100px;
   height: 100px;
   border: 1px solid #ccc;
-  display: flex;
 
+}
+
+.createBoxImage {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .middleContainer {
@@ -118,4 +122,14 @@ img {
 
 ul {
   list-style-type: none;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  user-select: none;
+}
+
+div {
+  cursor: grabbing;
 }
