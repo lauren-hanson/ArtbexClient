@@ -119,6 +119,7 @@ export const CreateArtBex = () => {
 
     return (
         <>
+
             <form
                 className="artBexForm"
                 onSubmit={publishNewArtBex}>
@@ -181,8 +182,11 @@ export const CreateArtBex = () => {
                             ))}
                         </ul>
 
-                        <DragDropContext onDragEnd={handleOnDragEnd}>
+                        <DragDropContext
+                            onDragEnd={handleOnDragEnd}
+                        >
                             <Droppable
+                                ignoreContainerClipping={true}
                                 droppableId='images'
 
                             >
@@ -193,7 +197,7 @@ export const CreateArtBex = () => {
                                         onDrop={handleImageDrop}
                                         {...provided.droppableProps}
                                         ref={provided.innerRef}>
-                                        <ul>
+                                        <ul className='createBoxImage'>
                                             {
                                                 selectedImages.map((selectedImageId, index) => {
                                                     const selectedImage = images.find((image) => image.id === selectedImageId);
@@ -210,6 +214,7 @@ export const CreateArtBex = () => {
                                                                         {...provided.draggableProps}
                                                                         {...provided.dragHandleProps}
                                                                     >
+
                                                                         <img
                                                                             className="placedImage"
                                                                             src={selectedImage?.image}
@@ -228,7 +233,7 @@ export const CreateArtBex = () => {
                                 )}
                             </Droppable>
                         </DragDropContext>
-                        {/* <DragDrop images={images} />  */}
+
 
                         {/* <ul>
                             {images.map((image) => (
