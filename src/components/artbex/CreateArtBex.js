@@ -52,6 +52,17 @@ export const CreateArtBex = () => {
         // })
     }, [])
 
+
+    const shuffleArray = (array) => {
+        const shuffledArray = [...array];
+        for (let i = shuffledArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+        }
+        return shuffledArray;
+    }
+
+
     const handleImageDragStart = (event, imageId) => {
         event.dataTransfer.setData("imageId", imageId);
     }
@@ -81,6 +92,7 @@ export const CreateArtBex = () => {
 
         setSelectedImages(newOrder)
     }
+
 
     const handleNewArtBex = (event) => {
         const artBex = Object.assign({}, newArtBex)
@@ -197,6 +209,7 @@ export const CreateArtBex = () => {
                                         onDrop={handleImageDrop}
                                         {...provided.droppableProps}
                                         ref={provided.innerRef}>
+
                                         <ul className='createBoxImage'>
                                             {
                                                 selectedImages.map((selectedImageId, index) => {
@@ -205,7 +218,7 @@ export const CreateArtBex = () => {
                                                         return (
                                                             <Draggable
                                                                 key={`selectedImage--${selectedImage.id}`}
-                                                                draggableId={selectedImageId.toString()}
+                                                                draggableId={selectedImage.id.toString()}
                                                                 index={index}
                                                             >
                                                                 {(provided) => (
