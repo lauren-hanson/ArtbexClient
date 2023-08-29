@@ -5,25 +5,20 @@ import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { DragDrop } from "./DragDrop";
-
 export const CreateArtBex = () => {
-
     const [newArtBex, setNewArtBex] = useState([{
         startDate: "",
         endDate: "",
         notes: "",
         images: []
     }])
-
     const [images, setImages] = useState([])
     const [selectedImages, setSelectedImages] = useState([])
     // const [updateImages, setUpdate] = useState(selectedImages)
-
     // const [productions, setProductions] = useState([])
     // const [audiences, setAudiences] = useState([])
     // const [formats, setFormats] = useState([])
     // const [tones, setTones] = useState([])
-
     const imagePromise = (body) => {
         return fetch(`http://localhost:8000/artbeximages`, {
             method: "POST",
@@ -33,7 +28,6 @@ export const CreateArtBex = () => {
             body: JSON.stringify(body),
         })
     }
-
     useEffect(() => {
         getImages().then((i) => {
             setImages(i)
@@ -51,17 +45,6 @@ export const CreateArtBex = () => {
         //     setAudiences(audience)
         // })
     }, [])
-
-
-    const shuffleArray = (array) => {
-        const shuffledArray = [...array];
-        for (let i = shuffledArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-        }
-        return shuffledArray;
-    }
-
 
     const handleImageDragStart = (event, imageId) => {
         event.dataTransfer.setData("imageId", imageId);
@@ -93,23 +76,18 @@ export const CreateArtBex = () => {
         setSelectedImages(newOrder)
     }
 
-
     const handleNewArtBex = (event) => {
         const artBex = Object.assign({}, newArtBex)
         artBex[event.target.name] = event.target.value
         setNewArtBex(artBex)
     }
-
-
     const publishNewArtBex = () => {
-
         const creation = {
             startDate: newArtBex.startDate,
             endDate: newArtBex.endDate,
             notes: newArtBex.notes,
             images: selectedImages
         }
-
         addNewArtBex(creation)
             .then((res) => res.json())
             .then((res) => {
@@ -125,13 +103,10 @@ export const CreateArtBex = () => {
                     .then(response => {
                         alert('ArtBex created!')
                     })
-
             })
     }
-
     return (
         <>
-
             <form
                 className="artBexForm"
                 onSubmit={publishNewArtBex}>
@@ -194,11 +169,8 @@ export const CreateArtBex = () => {
                             ))}
                         </ul>
 
-                        <DragDropContext
-                            onDragEnd={handleOnDragEnd}
-                        >
+                        <DragDropContext onDragEnd={handleOnDragEnd}>
                             <Droppable
-                                ignoreContainerClipping={true}
                                 droppableId='images'
 
                             >
@@ -209,8 +181,7 @@ export const CreateArtBex = () => {
                                         onDrop={handleImageDrop}
                                         {...provided.droppableProps}
                                         ref={provided.innerRef}>
-
-                                        <ul className='createBoxImage'>
+                                        <ul>
                                             {
                                                 selectedImages.map((selectedImageId, index) => {
                                                     const selectedImage = images.find((image) => image.id === selectedImageId);
@@ -218,7 +189,7 @@ export const CreateArtBex = () => {
                                                         return (
                                                             <Draggable
                                                                 key={`selectedImage--${selectedImage.id}`}
-                                                                draggableId={selectedImage.id.toString()}
+                                                                draggableId={selectedImageId.toString()}
                                                                 index={index}
                                                             >
                                                                 {(provided) => (
@@ -227,7 +198,6 @@ export const CreateArtBex = () => {
                                                                         {...provided.draggableProps}
                                                                         {...provided.dragHandleProps}
                                                                     >
-
                                                                         <img
                                                                             className="placedImage"
                                                                             src={selectedImage?.image}
@@ -246,7 +216,7 @@ export const CreateArtBex = () => {
                                 )}
                             </Droppable>
                         </DragDropContext>
-
+                        {/* <DragDrop images={images} />  */}
 
                         {/* <ul>
                             {images.map((image) => (
@@ -266,7 +236,6 @@ export const CreateArtBex = () => {
                                 </li>
                             ))}
                         </ul>
-
                         <div className="createBox" onDragOver={handleImageDragOver} onDrop={handleImageDrop}>
                             {selectedImages.map((selectedImageId) => {
                                 const selectedImage = images.find((image) => image.id === selectedImageId);
@@ -284,11 +253,7 @@ export const CreateArtBex = () => {
                                 }
                                 return null; // Handle the case where the selectedImage is not found in the images array.
                             })}
-
                         </div> */}
-
-
-
                         {/* <DragDropContext onDragEnd={handleOnDragEnd}>
                             <Droppable droppableId='images'>
                                 {(provided) => (
@@ -316,16 +281,12 @@ export const CreateArtBex = () => {
                                                     )}
                                                 </Draggable>
                                             )
-
                                         })}
                                         {provided.placeholder}
                                     </ul>
                                 )}
-
                             </Droppable>
                         </DragDropContext> */}
-
-
                         {/* <DragDropContext onDragEnd={handleOnDragEnd}>
                             <Droppable droppableId='images'>
                                 {(provided) => (
@@ -353,16 +314,12 @@ export const CreateArtBex = () => {
                                                     )}
                                                 </Draggable>
                                             )
-
                                         })}
                                         {provided.placeholder}
                                     </ul>
                                 )}
-
                             </Droppable>
                         </DragDropContext> */}
-
-
                         {/* <ul>
                             {updateImages.map((image) => (
                                 <li>
@@ -381,8 +338,6 @@ export const CreateArtBex = () => {
                                 </li>
                             ))}
                         </ul> */}
-
-
                         {/* <ul>
                             {images.map((image) => (
                                 <li>
@@ -401,10 +356,7 @@ export const CreateArtBex = () => {
                                 </li>
                             ))}
                         </ul> */}
-
-
                     </div>
-
                 </fieldset >
                 <button
                     type="publish"
@@ -416,8 +368,6 @@ export const CreateArtBex = () => {
                     Submit
                 </button>
             </form >
-
         </>
     )
 }
-
