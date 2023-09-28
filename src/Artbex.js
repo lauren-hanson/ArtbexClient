@@ -9,8 +9,8 @@ export const Artbex = () => {
 
   return (
     <>
-      <NavBar /> 
-     <ApplicationViews />
+      <NavBar />
+      <ApplicationViews />
       {/* <DragDrop /> */}
     </>
   )

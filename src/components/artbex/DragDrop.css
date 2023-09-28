@@ -1,0 +1,9 @@
+.imageGroup {
+    display: flex;
+    flex-flow: row wrap;
+    padding-bottom: 0;
+}
+
+ul { 
+    padding-bottom: 0; 
+}

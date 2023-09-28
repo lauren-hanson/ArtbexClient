@@ -1,35 +1,35 @@
 // import { useRef, useState, useEffect } from "react";
 // import { getImageByCategory, getImages } from "../../managers/ImageManager"
 
-// // const images = [
-// //     {
-// //         id: 1,
-// //         type: 'iPhone',
-// //         image: 'https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681061920/artbex/qozxbde2yexfhpngag7l.jpg'
+// const images = [
+//     {
+//         id: 1,
+//         type: 'iPhone',
+//         image: 'https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681061920/artbex/qozxbde2yexfhpngag7l.jpg'
 
-// //     },
-// //     {
-// //         id: 2,
-// //         type: 'DSLR',
-// //         image: ' https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681061946/artbex/kbas0tzrmopsx0o0yqyt.jpg'
-// //     },
-// //     {
-// //         id: 3,
-// //         type: 'Video Camera',
-// //         image: 'https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681061971/artbex/adjtptewseqalntlfja1.jpg'
-// //     },
-// //     {
-// //         id: 4,
-// //         type: 'Director',
-// //         image: 'https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681061985/artbex/jyae7bxvsficpresku5l.jpg'
-// //     }
-// // ]
+//     },
+//     {
+//         id: 2,
+//         type: 'DSLR',
+//         image: ' https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681061946/artbex/kbas0tzrmopsx0o0yqyt.jpg'
+//     },
+//     {
+//         id: 3,
+//         type: 'Video Camera',
+//         image: 'https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681061971/artbex/adjtptewseqalntlfja1.jpg'
+//     },
+//     {
+//         id: 4,
+//         type: 'Director',
+//         image: 'https://res.cloudinary.com/dgwi6xvfl/image/upload/v1681061985/artbex/jyae7bxvsficpresku5l.jpg'
+//     }
+// ]
 
-// // const pieces = [...images].map((piece) => ({
-// //     color: piece.color,
-// //     position: [Math.random() * 300, Math.random() * 300 + 300],
-// //     radius: piece.radius
-// // }));
+// const pieces = [...images].map((piece) => ({
+//     color: piece.color,
+//     position: [Math.random() * 300, Math.random() * 300 + 300],
+//     radius: piece.radius
+// }));
 
 // export const DragDrop = () => {
 //     const selected = useRef();
