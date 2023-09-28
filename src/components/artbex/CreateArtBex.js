@@ -5,6 +5,8 @@ import { addNewArtBex } from "../../managers/ArtbexManager"
 import { getImageByCategory, getImages } from "../../managers/ImageManager"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { DragDrop } from "./DragDrop";
+// import "./DragDrop.css"
+
 export const CreateArtBex = () => {
     const [newArtBex, setNewArtBex] = useState([{
         startDate: "",
@@ -14,7 +16,9 @@ export const CreateArtBex = () => {
     }])
     const [images, setImages] = useState([])
     const [selectedImages, setSelectedImages] = useState([])
-    // const [updateImages, setUpdate] = useState(selectedImages)
+    const [draggingImageId, setDraggingImageId] = useState(null);
+
+    // const [updatedImages, setUpdate] = useState(selectedImages)
     // const [productions, setProductions] = useState([])
     // const [audiences, setAudiences] = useState([])
     // const [formats, setFormats] = useState([])
@@ -66,15 +70,29 @@ export const CreateArtBex = () => {
 
     }
 
+    // const handleOnDragEnd = (result) => {
+    //     if (!result.destination) return;
+
+    //     const newOrder = [...selectedImages];
+    //     const [reorderedImage] = newOrder.splice(result.source.index, 1);
+    //     newOrder.splice(result.destination.index, 0, reorderedImage);
+
+    //     setSelectedImages(newOrder);
+    // };
+
     const handleOnDragEnd = (result) => {
         if (!result.destination) return;
-        // creating a new array 
-        const newOrder = Array.from(selectedImages)
-        const [reorderImages] = newOrder.splice(result.source.index, 1)
-        newOrder.splice(result.destination.index, 0, reorderImages)
 
-        setSelectedImages(newOrder)
-    }
+        const updatedImages = [...selectedImages];
+        const [reorderedImage] = updatedImages.splice(result.source.index, 1);
+        updatedImages.splice(result.destination.index, 0, reorderedImage);
+
+        setSelectedImages(updatedImages);
+
+        setDraggingImageId(null);
+    };
+
+
 
     const handleNewArtBex = (event) => {
         const artBex = Object.assign({}, newArtBex)
@@ -197,9 +215,11 @@ export const CreateArtBex = () => {
                                                                         ref={provided.innerRef}
                                                                         {...provided.draggableProps}
                                                                         {...provided.dragHandleProps}
+                                                                        className={`placedImage ${draggingImageId === selectedImageId ? 'dragging' : ''}`}
+                                                                        onMouseDown={() => setDraggingImageId(selectedImageId)} // Set the draggingImageId on drag start
+                                                                        onMouseUp={() => setDraggingImageId(null)} // Clear the draggingImageId on drag end
                                                                     >
                                                                         <img
-                                                                            className="placedImage"
                                                                             src={selectedImage?.image}
                                                                             alt="img"
                                                                         />

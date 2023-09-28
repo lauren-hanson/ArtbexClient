@@ -27,8 +27,8 @@ fieldset {
 
 .createBox {
   display: flex;
-  flex-flow: column wrap;
-  gap: 10px;
+  /* flex-flow: column wrap; */
+  /* gap: 10px; */
   width: 50rem;
   height: 50rem;
   border: 1px solid darkolivegreen;
@@ -38,7 +38,15 @@ fieldset {
   width: 100px;
   height: 100px;
   border: 1px solid #ccc;
+  padding: 0; 
+  transition: transform 0.3s ease-in-out;
 
+}
+
+/* Define styles for the dragged image */
+.dragging {
+  transform: scale(1.1); /* You can customize the scale and other styles as needed */
+  opacity: 0.7;
 }
 
 .createBoxImage {
